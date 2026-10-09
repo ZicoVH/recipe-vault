@@ -4,9 +4,11 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project
 
-Recipe Vault: a personal recipe collection app ("Your personal recipe collection"). Client-side React 19 + TypeScript SPA built with Vite (npm). No backend and no AI API integration; Claude Code is only the development tool.
+Recipe Vault: a personal recipe collection app ("Your personal recipe collection"). Requirements are in `docs/requirements.md`, which is the source of truth for scope and decisions.
 
-Status: early scaffold. `src/App.tsx` is a minimal placeholder (name and tagline), with the entry at `src/main.tsx`. No recipe features, data layer or routing exist yet; do not add them unless asked. The local directory and GitHub repo are still named `react-ai-lab` and have not been renamed.
+Current state: a React 19 + TypeScript frontend scaffold built with Vite (npm). `src/App.tsx` is a minimal placeholder (name and tagline), with the entry at `src/main.tsx`. No recipe features, data layer, routing or backend exist yet; do not add them unless asked.
+
+Planned (not implemented): a backend and database, deployed with Docker on a Raspberry Pi 4B (ARM64) with persistent storage. The backend technology and database are not selected yet and are decided in a separate architecture design step; do not pick or install them unprompted. The UI will be in Dutch, code and technical docs stay in English. There is no AI API integration; Claude Code is only the development tool.
 
 ## Commands
 

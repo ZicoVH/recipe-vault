@@ -2,11 +2,19 @@
 
 Your personal recipe collection.
 
-Recipe Vault is a client-side single-page app built with React, TypeScript and Vite. The goal is a simple place to keep, browse and find your own recipes.
+Recipe Vault is a personal recipe manager for creating, editing, organizing and searching your own recipes. It is meant to be mobile-friendly for use while cooking.
 
 ## Status
 
-Early development. The project is a scaffold: it shows a placeholder screen with the app name and tagline. No recipe features, data storage or backend exist yet.
+Early development. The current codebase is a React + TypeScript frontend scaffold built with Vite. It shows a placeholder screen with the app name and tagline. No recipe features, backend or database exist yet.
+
+## Planned architecture
+
+- A backend and database are planned but not yet implemented. The technology choices have not been made and will be decided during architecture design.
+- The target deployment is self-hosting on a Raspberry Pi 4B using Docker, with persistent data storage.
+- Docker persistent storage protects data across container restarts and updates, but it is not a backup. JSON export/import and a documented backup and restore procedure are part of the MVP.
+
+See [docs/requirements.md](docs/requirements.md) for the MVP scope, decisions and acceptance criteria.
 
 ## Getting started
 
