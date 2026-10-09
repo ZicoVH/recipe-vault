@@ -4,7 +4,9 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project
 
-Client-side React 19 + TypeScript SPA built with Vite (npm). No backend and no AI API integration; Claude Code is only the development tool. The app is still the Vite starter (`src/App.tsx`, entry at `src/main.tsx`).
+Recipe Vault: a personal recipe collection app ("Your personal recipe collection"). Client-side React 19 + TypeScript SPA built with Vite (npm). No backend and no AI API integration; Claude Code is only the development tool.
+
+Status: early scaffold. `src/App.tsx` is a minimal placeholder (name and tagline), with the entry at `src/main.tsx`. No recipe features, data layer or routing exist yet; do not add them unless asked. The local directory and GitHub repo are still named `react-ai-lab` and have not been renamed.
 
 ## Commands
 

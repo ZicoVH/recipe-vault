@@ -1,6 +1,12 @@
-# React AI Lab
+# Recipe Vault
 
-A client-side single-page app built with React, TypeScript and Vite.
+Your personal recipe collection.
+
+Recipe Vault is a client-side single-page app built with React, TypeScript and Vite. The goal is a simple place to keep, browse and find your own recipes.
+
+## Status
+
+Early development. The project is a scaffold: it shows a placeholder screen with the app name and tagline. No recipe features, data storage or backend exist yet.
 
 ## Getting started
 
@@ -36,7 +42,3 @@ npm run lint
 npm run format:check
 npm run build
 ```
-
-## React Compiler
-
-The React Compiler is not enabled because of its impact on dev and build performance. To add it, see the [React documentation](https://react.dev/learn/react-compiler/installation).
