@@ -16,16 +16,16 @@ The architecture recommendation stays provisional until the ADR is accepted.
 
 ## Test environments
 
-Run the spike in two environments and compare results:
+Run the spike in these environments:
 
-1. **microSD:** the current setup. It is the worst case for write wear, speed and free space.
-2. **SSD:** after the SSD is installed and the system or data volume runs from it.
+1. **SSD (required):** after the SSD is installed and the data volume runs from it. Results on the SSD are required before the architecture is accepted.
+2. **microSD (optional):** the current setup. Testing here is optional because the 16 GB card has limited free space and already runs production Docker services. It is the worst case for write wear, speed and free space. If run, use a disposable dataset and avoid disturbing the existing services. Results are compared with the SSD where available.
 
 Record for each run: Pi OS and version, kernel, Docker version, Node version, image base, SQLite version, SQLite driver and version, free disk space, and other services running on the Pi.
 
 ## Constraints
 
-- 16 GB microSD means limited free space for images, the database and backups.
+- The 16 GB microSD has limited free space for images, the database and backups, and already runs production Docker services that must not be disrupted.
 - Backup copies must not live only on the same card or disk as the live database. A backup on the same device does not protect against device failure.
 - Memory is shared with the OS, Docker and a future VPN client.
 
@@ -56,7 +56,7 @@ Each check records the measured result and a pass or fail. Criteria marked TBD a
 
 - A backup is taken while the app is writing (for example with the online backup API or `VACUUM INTO`).
 - The backup file opens and passes `PRAGMA integrity_check`.
-- The backup is copied to separate storage (another device or the SSD, once installed).
+- The backup is copied to separate storage (a different physical device from the one holding the live database).
 - Full restore: stop the app, wipe the data volume, restore from the backup, start the app, and verify recipe counts and sample content.
 - Time and disk space for backup and restore are recorded.
 
@@ -82,7 +82,7 @@ Each check records the measured result and a pass or fail. Criteria marked TBD a
 
 - Cold start time of the container to first successful response.
 - Search latency with about 500 seeded recipes, measured on the Pi over the local network.
-- Compare microSD and SSD results.
+- Record SSD results. If the optional microSD run is done, compare it with the SSD.
 
 **Pass:** TBD, to be set as a maximum start time and a maximum search latency (the goal is that it feels instant on a phone). **Fail:** exceeds the agreed limits.
 
@@ -97,7 +97,7 @@ Each check records the measured result and a pass or fail. Criteria marked TBD a
 - Numeric thresholds for RAM, startup time and search latency.
 - Maximum acceptable backup and restore duration.
 - Seed dataset definition (size, language mix, accents).
-- Whether the microSD results alone can give a "go", or whether SSD results are required for the final decision.
+- Confirm that SSD results are required for a "go", and that optional microSD results are informational only.
 
 ## Assumptions
 
