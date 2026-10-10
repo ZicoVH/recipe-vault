@@ -1,0 +1,13 @@
+.heading {
+  margin-bottom: 8px;
+  font-size: 1.75rem;
+  font-weight: 600;
+}
+
+.back {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 44px;
+  color: var(--accent);
+}

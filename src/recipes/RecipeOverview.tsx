@@ -9,7 +9,8 @@ type RecipeOverviewProps = {
 function RecipeOverview({ recipes }: RecipeOverviewProps) {
   return (
     <section>
-      <h2 className={styles.heading}>Recepten</h2>
+      <title>Recepten · Recipe Vault</title>
+      <h1 className={styles.heading}>Recepten</h1>
       <RecipeList recipes={recipes} />
     </section>
   )

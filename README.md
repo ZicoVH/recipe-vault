@@ -6,7 +6,12 @@ Recipe Vault is a personal recipe manager for creating, editing, organizing and 
 
 ## Status
 
-Early development. The frontend is a React + TypeScript app built with Vite. It currently shows a recipe overview page in Dutch: a responsive grid of recipe cards with title, optional preparation and cooking time, and tags. The recipes are mock data bundled with the app. Recipe details, search, filters, forms, persistence, a backend and a database do not exist yet.
+Early development. The frontend is a React + TypeScript app built with Vite, in Dutch, using mock data bundled with the app. It has:
+
+- A recipe overview: a responsive grid of recipe cards with title, optional preparation and cooking time, and tags.
+- A recipe detail page at `/recepten/<id>` with servings, times, tags, ingredients and ordered steps. Direct links and bookmarks work, and unknown recipes show a not-found page.
+
+Routing uses [React Router](https://reactrouter.com). Search, filters, forms, persistence, a backend and a database do not exist yet.
 
 ## Planned architecture
 
@@ -18,7 +23,7 @@ See [docs/requirements.md](docs/requirements.md) for the MVP scope, decisions an
 
 ## Getting started
 
-Requires Node.js and npm.
+Requires Node.js 22.22 or newer and npm.
 
 ```bash
 npm install

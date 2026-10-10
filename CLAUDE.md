@@ -6,9 +6,11 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 Recipe Vault: a personal recipe collection app ("Your personal recipe collection"). Requirements are in `docs/requirements.md`, which is the source of truth for scope and decisions.
 
-Current state: a React 19 + TypeScript frontend (Vite, npm) with a recipe overview page: a responsive grid of recipe cards (title, optional prep/cook time, tags) in Dutch, fed by mock data. Code lives in `src/recipes/`: components take recipes as props, and only `src/App.tsx` imports `mockRecipes.ts`. Styling uses CSS Modules plus tokens in `src/index.css`. The `Recipe` type in `src/recipes/types.ts` is a minimal overview model, not the final recipe model or an API contract.
+Current state: a React 19 + TypeScript frontend (Vite, npm) in Dutch, fed by mock data. It has a recipe overview (responsive grid of cards) and a recipe detail page (servings, optional prep/cook time, tags, ingredients, ordered steps). Routing uses React Router (data mode, `createBrowserRouter`) configured in `src/App.tsx`: `/` is the overview, `/recepten/:recipeId` the detail page, and unknown paths or ids show a Dutch not-found page. `Layout.tsx` moves focus to the page `h1` after navigation and restores scroll; each page sets its own `<title>`. Keep this accessible navigation behavior when adding routes: one `h1` per page, real links, visible focus.
 
-Not implemented yet: recipe details, search, filters, forms, CRUD, routing, persistence, API calls and the backend. Do not add them unless asked.
+Code lives in `src/` and `src/recipes/`. Components take recipes as props, and only `src/App.tsx` imports `mockRecipes.ts`. Styling uses CSS Modules plus tokens in `src/index.css`. The `Recipe` type in `src/recipes/types.ts` is a temporary frontend model for mock data, not the final recipe model or an API contract. Ingredient amounts are free display text, so scaling is not supported yet.
+
+Not implemented yet: search, filters, forms, CRUD, persistence, API calls and the backend. Do not add them unless asked. Any server that hosts the built app must fall back to `index.html` for unknown paths so deep links like `/recepten/<id>` work. `react-router` 8 needs Node 22.22 or newer.
 
 Planned (not implemented): a backend and database, deployed with Docker on a Raspberry Pi 4B (ARM64) with persistent storage. The backend technology and database are not selected yet and are decided in a separate architecture design step; do not pick or install them unprompted. The UI is in Dutch; code and technical docs stay in English. There is no AI API integration; Claude Code is only the development tool.
 

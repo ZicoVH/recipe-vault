@@ -6,6 +6,7 @@
   --border: #e5e3ea;
   --tag-bg: #efeaf8;
   --tag-text: #4b3a73;
+  --accent: #5b3fd0;
 
   font:
     18px/145% system-ui,
@@ -26,6 +27,7 @@
     --border: #2e303a;
     --tag-bg: #2a2540;
     --tag-text: #cbbcf0;
+    --accent: #b9a7ff;
   }
 }
 
@@ -50,4 +52,14 @@ h1,
 h2,
 h3 {
   color: var(--text-h);
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* Headings only receive focus programmatically after navigation. */
+main h1:focus {
+  outline: none;
 }

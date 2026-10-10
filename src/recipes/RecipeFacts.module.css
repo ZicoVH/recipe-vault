@@ -1,0 +1,21 @@
+.facts {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: var(--facts-size, 1rem);
+}
+
+.fact {
+  display: flex;
+  gap: 8px;
+}
+
+.fact dt {
+  flex: 0 0 8rem;
+}
+
+.fact dd {
+  margin: 0;
+  color: var(--text-h);
+}
