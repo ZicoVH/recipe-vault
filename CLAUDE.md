@@ -21,6 +21,7 @@ Planned (not implemented): a backend and database, deployed with Docker on a Ras
 - `npm run lint` — ESLint (`eslint .`)
 - `npm run format` / `npm run format:check` — Prettier write / check
 - Before finishing a change, run lint, `format:check` and build.
+- After meaningful frontend changes (anything beyond trivial edits in `src/`) and before committing, run the `frontend-reviewer` subagent (`.claude/agents/frontend-reviewer.md`). It is read-only and does not run the build, so run the build yourself. Triage its findings and report them; do not apply fixes the user has not approved.
 
 There is no test runner yet (no Vitest or Testing Library). Do not add one unless asked.
 
