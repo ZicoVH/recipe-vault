@@ -3,3 +3,33 @@
   font-size: 1.75rem;
   font-weight: 600;
 }
+
+.search {
+  margin-bottom: 16px;
+}
+
+.label {
+  display: block;
+  margin-bottom: 4px;
+  font-weight: 600;
+  color: var(--text-h);
+}
+
+.input {
+  display: block;
+  width: 100%;
+  max-width: 28rem;
+  min-height: 44px;
+  padding: 8px 12px;
+  font: inherit;
+  color: var(--text-h);
+  background: var(--surface);
+  border: 1px solid var(--text);
+  border-radius: 8px;
+}
+
+.status {
+  min-height: 1.5em;
+  margin-top: 4px;
+  overflow-wrap: anywhere;
+}
