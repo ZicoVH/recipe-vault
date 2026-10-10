@@ -2,6 +2,10 @@
   --text: #6b6375;
   --text-h: #08060d;
   --bg: #fff;
+  --surface: #f7f6f9;
+  --border: #e5e3ea;
+  --tag-bg: #efeaf8;
+  --tag-text: #4b3a73;
 
   font:
     18px/145% system-ui,
@@ -18,31 +22,32 @@
     --text: #9ca3af;
     --text-h: #f3f4f6;
     --bg: #16171d;
+    --surface: #1f2028;
+    --border: #2e303a;
+    --tag-bg: #2a2540;
+    --tag-text: #cbbcf0;
   }
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
 
 body {
   margin: 0;
 }
 
-main {
-  min-height: 100svh;
-  box-sizing: border-box;
-  padding: 32px 16px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-}
-
-h1 {
-  margin: 0 0 8px;
-  font-size: 48px;
-  font-weight: 500;
-  color: var(--text-h);
-}
-
+h1,
+h2,
+h3,
 p {
   margin: 0;
+}
+
+h1,
+h2,
+h3 {
+  color: var(--text-h);
 }

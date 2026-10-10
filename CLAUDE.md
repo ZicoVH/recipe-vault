@@ -6,9 +6,11 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 Recipe Vault: a personal recipe collection app ("Your personal recipe collection"). Requirements are in `docs/requirements.md`, which is the source of truth for scope and decisions.
 
-Current state: a React 19 + TypeScript frontend scaffold built with Vite (npm). `src/App.tsx` is a minimal placeholder (name and tagline), with the entry at `src/main.tsx`. No recipe features, data layer, routing or backend exist yet; do not add them unless asked.
+Current state: a React 19 + TypeScript frontend (Vite, npm) with a recipe overview page: a responsive grid of recipe cards (title, optional prep/cook time, tags) in Dutch, fed by mock data. Code lives in `src/recipes/`: components take recipes as props, and only `src/App.tsx` imports `mockRecipes.ts`. Styling uses CSS Modules plus tokens in `src/index.css`. The `Recipe` type in `src/recipes/types.ts` is a minimal overview model, not the final recipe model or an API contract.
 
-Planned (not implemented): a backend and database, deployed with Docker on a Raspberry Pi 4B (ARM64) with persistent storage. The backend technology and database are not selected yet and are decided in a separate architecture design step; do not pick or install them unprompted. The UI will be in Dutch, code and technical docs stay in English. There is no AI API integration; Claude Code is only the development tool.
+Not implemented yet: recipe details, search, filters, forms, CRUD, routing, persistence, API calls and the backend. Do not add them unless asked.
+
+Planned (not implemented): a backend and database, deployed with Docker on a Raspberry Pi 4B (ARM64) with persistent storage. The backend technology and database are not selected yet and are decided in a separate architecture design step; do not pick or install them unprompted. The UI is in Dutch; code and technical docs stay in English. There is no AI API integration; Claude Code is only the development tool.
 
 ## Commands
 
