@@ -24,7 +24,9 @@ Size: M. Depends on: 1.1. Covers: US10, R2.
 
 ## 1.3 Recipe CRUD API
 
-Size: L. Depends on: 1.1. Covers: US1, US3.
+Size: L. Depends on: 1.1. Covers: US1, US3. Status: done.
+
+Implemented: `POST`, `GET`, `PUT /api/recipes` and the active-recipe list, with the validator in `apps/api/src/recipes/validation.ts`. Delete and trash come in 1.5, search in 1.6.
 
 - Create requires a title and servings. Servings must be a positive whole number.
 - Ingredient quantity and unit are optional, and free expressions are accepted.

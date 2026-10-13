@@ -15,11 +15,11 @@ Derived from `docs/requirements.md` (MVP baseline) and `docs/spike-pi-sqlite.md`
 | 1.1 | Backend skeleton and persistent storage | M    | 0.4        | US10          | done   |
 | 1.2 | Docker image for ARM64 and deploy to Pi | M    | 1.1        | US10, R2      | done   |
 | 1.3 | Recipe CRUD API                         | L    | 1.1        | US1, US3      | done   |
-| 1.4 | Tags in the API                         | S    | 1.3        | US6, D13      | todo   |
-| 1.5 | Trash API                               | M    | 1.3        | US4, D10      | todo   |
+| 1.4 | Tags in the API                         | S    | 1.3        | US6, D13      | done   |
+| 1.5 | Trash API                               | M    | 1.3        | US4, D10      | done   |
 | 1.6 | Search API                              | M    | 1.3, 1.5   | US5, D9       | todo   |
-| 1.7 | Export and import API                   | M    | 1.3        | US7, US8      | todo   |
-| 2.1 | Replace mock data with the API          | M    | 1.3        | US2           | todo   |
+| 1.7 | Export and import API                   | M    | 1.3        | US7, US8      | done   |
+| 2.1 | Replace mock data with the API          | M    | 1.3        | US2           | done   |
 | 2.2 | Create and edit recipe form             | L    | 1.3, 1.4   | US1, US3, US6 | todo   |
 | 2.3 | Delete, trash and restore UI            | M    | 1.5        | US4           | todo   |
 | 2.4 | Extend search to ingredients and tags   | S    | 1.6        | US5           | todo   |
