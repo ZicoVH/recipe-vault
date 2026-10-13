@@ -33,25 +33,33 @@ function Layout() {
   }, [pathname])
 
   return (
-    <div className={styles.page}>
+    <>
       <header className={styles.header}>
-        <Link to="/" className={styles.brand}>
-          Recipe Vault
-        </Link>
-        {pathname === '/' && <p>Jouw persoonlijke receptencollectie</p>}
+        <div className={styles.headerInner}>
+          <Link to="/" className={styles.brand}>
+            Recipe Vault
+          </Link>
+          {pathname === '/' && (
+            <p className={styles.tagline}>
+              Jouw persoonlijke receptencollectie
+            </p>
+          )}
+        </div>
       </header>
-      <p role="status" className={styles.loading}>
-        {navigation.state === 'submitting'
-          ? 'Bezig…'
-          : navigatingToOtherPage
-            ? 'Laden…'
-            : ''}
-      </p>
-      <main>
-        <Outlet />
-      </main>
-      <ScrollRestoration />
-    </div>
+      <div className={styles.page}>
+        <p role="status" className={styles.loading}>
+          {navigation.state === 'submitting'
+            ? 'Bezig…'
+            : navigatingToOtherPage
+              ? 'Laden…'
+              : ''}
+        </p>
+        <main>
+          <Outlet />
+        </main>
+        <ScrollRestoration />
+      </div>
+    </>
   )
 }
 

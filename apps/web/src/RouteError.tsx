@@ -1,5 +1,6 @@
 import { useRouteError } from 'react-router'
 import { ApiError } from './api/client'
+import buttons from './Button.module.css'
 import styles from './NotFound.module.css'
 
 function RouteError() {
@@ -20,7 +21,7 @@ function RouteError() {
       </p>
       <button
         type="button"
-        className={styles.retry}
+        className={buttons.secondary}
         onClick={() => window.location.reload()}
       >
         Probeer opnieuw

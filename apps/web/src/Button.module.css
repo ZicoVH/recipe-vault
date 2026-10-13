@@ -13,33 +13,38 @@
   font-weight: 600;
   text-decoration: none;
   border: 1px solid var(--accent);
-  border-radius: 8px;
+  border-radius: 999px;
   cursor: pointer;
+  transition:
+    background 0.15s,
+    box-shadow 0.15s;
 }
 
 .primary {
   color: var(--bg);
   background: var(--accent);
+  box-shadow: var(--shadow);
 }
 
 .secondary {
   color: var(--accent);
-  background: var(--bg);
+  background: var(--surface);
 }
 
 .danger {
   color: var(--danger);
-  background: var(--bg);
+  background: var(--surface);
   border-color: var(--danger);
 }
 
 .primary:hover {
-  opacity: 0.9;
+  background: var(--accent-hover);
+  border-color: var(--accent-hover);
 }
 
 .secondary:hover,
 .danger:hover {
-  background: var(--surface);
+  background: var(--bg);
 }
 
 .primary:disabled,
