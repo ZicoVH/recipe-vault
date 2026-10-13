@@ -10,26 +10,28 @@ Current state: a React 19 + TypeScript frontend (Vite, npm) in Dutch, fed by moc
 
 Conventions:
 
-- The repo is an npm workspaces monorepo: `apps/web` (frontend) and, once created, `apps/api` (backend). Shared tooling configs (ESLint, Prettier) are at the root. `spike/` is throwaway and not a workspace.
+- The repo is an npm workspaces monorepo: `apps/web` (frontend) and `apps/api` (backend). Shared tooling configs (ESLint, Prettier) are at the root. `spike/` is throwaway and not a workspace.
 - Frontend code lives in `apps/web/src/` and `apps/web/src/recipes/`. Components take recipes as props; only `apps/web/src/App.tsx` imports `mockRecipes.ts`.
 - Styling uses CSS Modules plus tokens in `apps/web/src/index.css`.
 - The `Recipe` type in `apps/web/src/recipes/types.ts` is a temporary model for mock data, not the final model or an API contract. Ingredient amounts are free display text, so scaling is not supported.
 - The UI is in Dutch; code and technical docs stay in English.
 
-Not implemented yet: search on ingredients and tags, tag filters, forms, CRUD, persistence, API calls and the backend. Do not add them unless asked.
+Not implemented yet: search on ingredients and tags, tag filters, forms, recipe CRUD, API calls from the frontend and the recipe tables. The API currently has only `GET /api/health` and the SQLite setup. Do not add the rest unless asked; the plan is in `docs/tickets/` and the contract in `docs/api-model.md`.
 
-Planned: a backend and database, deployed with Docker on a Raspberry Pi 4B (ARM64) with persistent storage. The technology is decided in a separate architecture step; do not pick or install it unprompted. Any server hosting the built app must fall back to `index.html` for unknown paths so deep links like `/recepten/<id>` work. There is no AI API integration; Claude Code is only the development tool.
+Backend (provisional until ADR 0001 is accepted): Fastify with `better-sqlite3`, SQLite in WAL mode in `DATA_DIR`, deployed later with Docker on a Raspberry Pi 4B (ARM64). Keep SQLite access in `apps/api/src/db.ts` so the driver can be swapped (`node:sqlite` is the fallback). Do not add other backend technology unprompted. Any server hosting the built app must fall back to `index.html` for unknown paths so deep links like `/recepten/<id>` work. There is no AI API integration; Claude Code is only the development tool.
 
 ## Commands
 
 - `npm run dev` — frontend Vite dev server with HMR
-- `npm run check` — lint, `format:check` and build in one go (type errors fail the build)
+- `npm run dev:api` — API with `node --watch` (uses `DATA_DIR`, `PORT`, `HOST`; defaults `./data`, 3000, 127.0.0.1)
+- `npm run test` — API tests (Node built-in `node:test`)
+- `npm run check` — lint, `format:check`, build and tests in one go (type errors fail the build)
 - `npm run format` — Prettier write
 - Before finishing a change, run `npm run check`.
 - A hook runs Prettier and ESLint on each edited `.ts`/`.tsx`/`.css` file in `apps/*/src/` and reports problems.
 - After meaningful frontend changes (beyond trivial edits in `apps/web/src/`) and before committing, run the `frontend-reviewer` subagent (`.claude/agents/frontend-reviewer.md`). It is read-only and does not run the build. Triage its findings and report them; do not apply fixes the user has not approved.
 
-There is no test runner yet. Do not add one unless asked.
+The frontend has no test runner yet. Do not add one unless asked. The API uses Node's built-in `node:test`.
 
 ## Tickets
 
@@ -43,3 +45,4 @@ Tickets live in `docs/tickets/` (index and status in `README.md`, one file per e
 - `verbatimModuleSyntax` (use `import type`) and `erasableSyntaxOnly` (no enums, namespaces or constructor parameter properties) are on.
 - `noUnusedLocals` and `noUnusedParameters` are on, so unused variables fail the build.
 - `react-router` 8 needs Node 22.22 or newer.
+- API code runs directly with Node type stripping (dev and tests) and is compiled with `tsc` for production. Relative imports use the `.ts` extension. Schema changes are numbered SQL files in `apps/api/migrations/`, applied by `src/migrate.ts` (never edit an applied file).

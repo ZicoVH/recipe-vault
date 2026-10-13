@@ -9,7 +9,7 @@ import { defineConfig, globalIgnores } from 'eslint/config'
 export default defineConfig([
   globalIgnores(['**/dist']),
   {
-    files: ['**/*.{ts,tsx}'],
+    files: ['apps/web/**/*.{ts,tsx}'],
     extends: [
       js.configs.recommended,
       tseslint.configs.recommended,
@@ -20,6 +20,14 @@ export default defineConfig([
     languageOptions: {
       ecmaVersion: 2023,
       globals: globals.browser,
+    },
+  },
+  {
+    files: ['apps/api/**/*.ts'],
+    extends: [js.configs.recommended, tseslint.configs.recommended, prettier],
+    languageOptions: {
+      ecmaVersion: 2023,
+      globals: globals.node,
     },
   },
 ])

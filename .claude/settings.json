@@ -4,6 +4,7 @@
       "Bash(npm run lint)",
       "Bash(npm run format:check)",
       "Bash(npm run build)",
+      "Bash(npm run test)",
       "Bash(npm run check)",
       "Bash(git status)",
       "Bash(git diff:*)",
@@ -12,6 +13,7 @@
     "deny": [
       "Read(./package-lock.json)",
       "Read(./apps/*/dist/**)",
+      "Read(./apps/api/data/**)",
       "Read(./node_modules/**)",
       "Read(./apps/*/node_modules/**)",
       "Read(./.idea/**)"

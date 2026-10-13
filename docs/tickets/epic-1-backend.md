@@ -4,7 +4,9 @@ Technology-neutral until the ADR (ticket 0.2) is accepted.
 
 ## 1.1 Backend skeleton and persistent storage
 
-Size: M. Depends on: 0.4. Covers: US10.
+Size: M. Depends on: 0.4. Covers: US10. Status: done.
+
+Implemented in `apps/api`: Fastify, `better-sqlite3`, numbered SQL migrations, `node:test`. Provisional until ADR 0001 is accepted.
 
 - The backend starts, serves a health endpoint and stores data on a configurable volume.
 - Data survives a process restart.
