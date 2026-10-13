@@ -14,7 +14,9 @@ Implemented with React Router loaders (`apps/web/src/recipes/loaders.ts`), a Dut
 
 ## 2.2 Create and edit recipe form
 
-Size: L. Depends on: 1.3, 1.4. Covers: US1, US3, US6.
+Size: L. Depends on: 1.3, 1.4. Covers: US1, US3, US6. Status: done.
+
+Routes `/recepten/nieuw` and `/recepten/:recipeId/bewerken`, built with React Router actions. Steps move with Omhoog and Omlaag buttons (no drag and drop). Blank ingredient and step rows are ignored on save. Verified with a jsdom test of the real app against a live API (about 50 checks, including failure cases) and not in a real browser: the layout at 360 px, touch use and screen reader output still need a manual check.
 
 - Required fields are validated and errors appear in Dutch.
 - Ingredients can be added and removed, with optional quantity and unit.

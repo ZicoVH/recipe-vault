@@ -1,5 +1,11 @@
 import { useId, useState } from 'react'
-import { useLocation, useNavigationType, useSearchParams } from 'react-router'
+import {
+  Link,
+  useLocation,
+  useNavigationType,
+  useSearchParams,
+} from 'react-router'
+import buttons from '../Button.module.css'
 import RecipeList from './RecipeList'
 import styles from './RecipeOverview.module.css'
 import { filterRecipesByTitle } from './searchRecipes'
@@ -65,7 +71,12 @@ function RecipeOverview({ recipes }: RecipeOverviewProps) {
   return (
     <section>
       <title>Recepten · Recipe Vault</title>
-      <h1 className={styles.heading}>Recepten</h1>
+      <div className={styles.titleRow}>
+        <h1 className={styles.heading}>Recepten</h1>
+        <Link to="/recepten/nieuw" className={buttons.primary}>
+          Nieuw recept
+        </Link>
+      </div>
       {recipes.length > 0 && (
         <div role="search" className={styles.search}>
           <label htmlFor={searchId} className={styles.label}>

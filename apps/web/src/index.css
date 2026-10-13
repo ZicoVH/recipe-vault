@@ -7,6 +7,7 @@
   --tag-bg: #efeaf8;
   --tag-text: #4b3a73;
   --accent: #5b3fd0;
+  --danger: #b3261e;
 
   font:
     18px/145% system-ui,
@@ -28,6 +29,7 @@
     --tag-bg: #2a2540;
     --tag-text: #cbbcf0;
     --accent: #b9a7ff;
+    --danger: #ff8a80;
   }
 }
 

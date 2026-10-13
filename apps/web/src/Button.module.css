@@ -1,0 +1,50 @@
+/* Shared by buttons and links that look like buttons. 44px touch target. */
+.base,
+.primary,
+.secondary,
+.danger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: 44px;
+  padding: 0 16px;
+  font: inherit;
+  font-weight: 600;
+  text-decoration: none;
+  border: 1px solid var(--accent);
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.primary {
+  color: var(--bg);
+  background: var(--accent);
+}
+
+.secondary {
+  color: var(--accent);
+  background: var(--bg);
+}
+
+.danger {
+  color: var(--danger);
+  background: var(--bg);
+  border-color: var(--danger);
+}
+
+.primary:hover {
+  opacity: 0.9;
+}
+
+.secondary:hover,
+.danger:hover {
+  background: var(--surface);
+}
+
+.primary:disabled,
+.secondary:disabled,
+.danger:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

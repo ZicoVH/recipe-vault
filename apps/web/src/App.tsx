@@ -5,10 +5,19 @@ import NotFound from './NotFound'
 import PageLoading from './PageLoading'
 import RouteError from './RouteError'
 import RecipeDetailRoute from './recipes/RecipeDetailRoute'
+import {
+  createRecipeAction,
+  updateRecipeAction,
+} from './recipes/form/formActions'
+import {
+  RecipeEditRoute,
+  RecipeNewRoute,
+} from './recipes/form/RecipeFormRoutes'
 import RecipeOverviewRoute from './recipes/RecipeOverviewRoute'
 import {
   detailLoader,
   ignoreSearchChange,
+  keepFormAfterFailedSave,
   overviewLoader,
 } from './recipes/loaders'
 
@@ -29,9 +38,21 @@ const router = createBrowserRouter([
             shouldRevalidate: ignoreSearchChange,
           },
           {
+            path: 'recepten/nieuw',
+            element: <RecipeNewRoute />,
+            action: createRecipeAction,
+          },
+          {
             path: 'recepten/:recipeId',
             element: <RecipeDetailRoute />,
             loader: detailLoader,
+          },
+          {
+            path: 'recepten/:recipeId/bewerken',
+            element: <RecipeEditRoute />,
+            loader: detailLoader,
+            shouldRevalidate: keepFormAfterFailedSave,
+            action: updateRecipeAction,
           },
         ],
       },

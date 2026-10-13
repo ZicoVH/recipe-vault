@@ -16,7 +16,7 @@ Conventions:
 - `apps/web/src/recipes/types.ts` mirrors the API model in `docs/api-model.md`. Keep the two in sync.
 - The UI is in Dutch; code and technical docs stay in English.
 
-Not implemented yet in the frontend: forms (create and edit), trash UI, export/import UI, and search on ingredients and tags (title search still runs in the browser on the loaded list). Do not add them unless asked; the plan is in `docs/tickets/` (Epic 2). The API is feature-complete for the MVP (tickets 1.1 to 1.7, contract in `docs/api-model.md`).
+Recipe create and edit forms exist (`apps/web/src/recipes/form/`, React Router actions that call the API, validation messages in `formModel.ts`; its limits mirror `docs/api-model.md`). Not implemented yet in the frontend: trash UI, export/import UI, and search on ingredients and tags (title search still runs in the browser on the loaded list). Do not add them unless asked; the plan is in `docs/tickets/` (Epic 2). The API is feature-complete for the MVP (tickets 1.1 to 1.7, contract in `docs/api-model.md`).
 
 Backend (provisional until ADR 0001 is accepted): Fastify with `better-sqlite3`, SQLite in WAL mode in `DATA_DIR`, deployed later with Docker on a Raspberry Pi 4B (ARM64). Keep SQLite access in `apps/api/src/db.ts` so the driver can be swapped (`node:sqlite` is the fallback). Do not add other backend technology unprompted. Any server hosting the built app must fall back to `index.html` for unknown paths so deep links like `/recepten/<id>` work. There is no AI API integration; Claude Code is only the development tool.
 

@@ -24,6 +24,25 @@ export const ignoreSearchChange: ShouldRevalidateFunction = ({
   return defaultShouldRevalidate
 }
 
+/**
+ * After a save that did not succeed (server unreachable, invalid, 404, 409)
+ * the edit page must keep showing the form with the typed data. Reloading the
+ * recipe at that moment would replace the form with an error or not-found
+ * page, so skip it. A successful save redirects, which loads the next page.
+ */
+export const keepFormAfterFailedSave: ShouldRevalidateFunction = ({
+  formMethod,
+  actionResult,
+  defaultShouldRevalidate,
+}) => {
+  const failed =
+    typeof actionResult === 'object' &&
+    actionResult !== null &&
+    'status' in actionResult
+  if (formMethod && failed) return false
+  return defaultShouldRevalidate
+}
+
 export async function overviewLoader({
   request,
 }: LoaderFunctionArgs): Promise<RecipeSummary[]> {

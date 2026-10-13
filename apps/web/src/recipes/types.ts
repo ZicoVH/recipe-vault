@@ -25,3 +25,14 @@ export type Recipe = RecipeSummary & {
   createdAt: string
   updatedAt: string
 }
+
+/** The editable fields of a recipe: the body of create and update requests. */
+export type RecipeInput = {
+  title: string
+  servings: number
+  prepTimeMinutes: number | null
+  cookTimeMinutes: number | null
+  ingredients: Ingredient[]
+  steps: string[]
+  tags: string[]
+}

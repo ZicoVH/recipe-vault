@@ -1,4 +1,5 @@
 import { Link } from 'react-router'
+import buttons from '../Button.module.css'
 import RecipeFacts from './RecipeFacts'
 import styles from './RecipeDetail.module.css'
 import { formatAmount } from './formatAmount'
@@ -11,6 +12,7 @@ type RecipeDetailProps = {
 
 function RecipeDetail({ recipe }: RecipeDetailProps) {
   const {
+    id,
     title,
     servings,
     prepTimeMinutes,
@@ -23,9 +25,14 @@ function RecipeDetail({ recipe }: RecipeDetailProps) {
   return (
     <article className={styles.detail}>
       <title>{`${title} · Recipe Vault`}</title>
-      <Link to="/" className={styles.back}>
-        <span aria-hidden="true">←</span> Alle recepten
-      </Link>
+      <div className={styles.topBar}>
+        <Link to="/" className={styles.back}>
+          <span aria-hidden="true">←</span> Alle recepten
+        </Link>
+        <Link to={`/recepten/${id}/bewerken`} className={buttons.secondary}>
+          Bewerken
+        </Link>
+      </div>
       <h1 className={styles.title}>{title}</h1>
       <RecipeFacts
         servings={servings}
@@ -43,7 +50,11 @@ function RecipeDetail({ recipe }: RecipeDetailProps) {
               const amount = formatAmount(ingredient)
               return (
                 <li key={index} className={styles.ingredient}>
-                  {amount && <span className={styles.amount}>{amount}</span>}
+                  {amount && (
+                    <>
+                      <span className={styles.amount}>{amount}</span>{' '}
+                    </>
+                  )}
                   <span className={styles.name}>
                     {ingredient.note
                       ? `${ingredient.name}, ${ingredient.note}`
