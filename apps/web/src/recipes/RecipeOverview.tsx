@@ -162,6 +162,9 @@ function RecipeOverview({ data }: RecipeOverviewProps) {
       <div className={styles.titleRow}>
         <h1 className={styles.heading}>Recepten</h1>
         <div className={styles.titleActions}>
+          <Link to="/exporteren-importeren" className={buttons.secondary}>
+            Exporteren en importeren
+          </Link>
           <Link to="/prullenbak" className={buttons.secondary}>
             Prullenbak
           </Link>

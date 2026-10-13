@@ -5,6 +5,8 @@ import NotFound from './NotFound'
 import PageLoading from './PageLoading'
 import RouteError from './RouteError'
 import RecipeDetailRoute from './recipes/RecipeDetailRoute'
+import { importAction } from './recipes/exchange/exchangeActions'
+import ExchangeRoute from './recipes/exchange/ExchangeRoute'
 import {
   createRecipeAction,
   updateRecipeAction,
@@ -48,6 +50,11 @@ const router = createBrowserRouter([
             loader: trashLoader,
             shouldRevalidate: reloadUnlessRequestFailed,
             action: trashPageAction,
+          },
+          {
+            path: 'exporteren-importeren',
+            element: <ExchangeRoute />,
+            action: importAction,
           },
           {
             path: 'recepten/nieuw',

@@ -375,8 +375,9 @@ const SERVER_MESSAGES: Record<string, string> = {
   out_of_range: 'Deze waarde ligt buiten het toegestane bereik.',
   not_integer: 'Vul een geheel getal in.',
   wrong_type: 'Deze waarde is niet geldig.',
+  unknown_field: 'Dit veld hoort niet bij een recept.',
 }
-const serverMessage = (code: string) =>
+export const serverMessage = (code: string) =>
   SERVER_MESSAGES[code] ?? 'Deze waarde is niet geldig.'
 
 /**

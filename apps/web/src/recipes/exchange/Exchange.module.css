@@ -1,0 +1,89 @@
+.page {
+  max-width: 40rem;
+  margin: 0 auto;
+}
+
+.back {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 44px;
+  color: var(--accent);
+}
+
+.heading {
+  margin: 4px 0 16px;
+  font-size: 1.75rem;
+  font-weight: 600;
+}
+
+.block {
+  margin-bottom: 24px;
+  padding: 16px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+}
+
+.block p {
+  margin-bottom: 12px;
+}
+
+.subheading {
+  margin-bottom: 8px;
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.exportStatus {
+  margin: 12px 0 0;
+}
+
+.exportStatus:empty {
+  margin: 0;
+}
+
+.result:focus {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.result:not([data-has-result]) {
+  display: none;
+}
+
+.message {
+  margin-bottom: 12px;
+  padding: 10px 14px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+}
+
+.failed {
+  color: var(--danger);
+  border: 2px solid var(--danger);
+  font-weight: 600;
+}
+
+.problems {
+  margin: 8px 0 0;
+  padding-left: 20px;
+  font-weight: 400;
+}
+
+.importForm {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.label {
+  font-weight: 600;
+}
+
+.file {
+  max-width: 100%;
+  font: inherit;
+}
