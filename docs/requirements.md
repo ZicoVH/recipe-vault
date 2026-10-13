@@ -32,6 +32,8 @@ Recipe Vault is a personal recipe manager (React + TypeScript). The repo is curr
 | D14 | The mobile layout supports screens from 360 px width.                                                                                                            |
 | D15 | The data model is not designed around future photos or multi-user support. It is not to be over-engineered for them.                                             |
 | D16 | Backend technology and database selection stay open for architecture design.                                                                                     |
+| D17 | Selecting several tags filters with AND: a recipe matches only if it has all selected tags.                                                                      |
+| D18 | The trash has no "empty trash" action in the MVP. Recipes are permanently deleted one at a time, with explicit confirmation.                                     |
 
 ## User stories and acceptance criteria
 
@@ -55,13 +57,14 @@ Recipe Vault is a personal recipe manager (React + TypeScript). The repo is curr
 
 - Deleted recipes disappear from the list and from search, and appear in trash.
 - Restore returns the recipe with all data intact.
-- Permanent deletion from trash is manual and needs explicit confirmation.
+- Permanent deletion from trash is manual, one recipe at a time, and needs explicit confirmation. There is no "empty trash" action (D18).
 - Nothing is purged automatically.
 
 **US5 Search and filter.** I can find recipes by title, ingredient name and tags.
 
 - Matching is case-insensitive and accent-insensitive.
 - Trashed recipes are excluded.
+- When several tags are selected, only recipes that have all of them match (D17).
 - An empty result shows a clear Dutch message.
 
 **US6 Tags.** I can add and remove free-form tags.
@@ -106,6 +109,4 @@ Recipe Vault is a personal recipe manager (React + TypeScript). The repo is curr
 
 ## Open questions
 
-- Tag filter semantics when several tags are selected (AND or OR). Proposed default: AND.
-- Whether the UI needs a visible "empty trash" action, or only per-recipe permanent delete.
 - Performance target for collection size and search speed (architecture design).

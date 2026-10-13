@@ -8,7 +8,7 @@ Derived from `docs/requirements.md` (MVP baseline) and `docs/spike-pi-sqlite.md`
 | --- | --------------------------------------- | ---- | ---------- | ------------- | ------ |
 | 0.1 | Finalize spike criteria                 | S    | -          | -             | done   |
 | 0.2 | Run the spike and write the ADR         | M    | 0.1, SSD   | D16, R4       | todo   |
-| 0.3 | Resolve open questions                  | S    | -          | -             | todo   |
+| 0.3 | Resolve open questions                  | S    | -          | -             | done   |
 | 0.4 | Define the data and API model           | M    | 0.2        | D5, D15       | todo   |
 | 0.5 | Update project documentation            | S    | 0.2        | D3, R5        | todo   |
 | 1.1 | Backend skeleton and persistent storage | M    | 0.4        | US10          | todo   |
