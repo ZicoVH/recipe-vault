@@ -16,7 +16,7 @@ Conventions:
 - The `Recipe` type in `apps/web/src/recipes/types.ts` is a temporary model for mock data, not the final model or an API contract. Ingredient amounts are free display text, so scaling is not supported.
 - The UI is in Dutch; code and technical docs stay in English.
 
-Not implemented yet: search on ingredients and tags, tag filters, forms, API calls from the frontend, trash, search on ingredients and tags. The API currently has `GET /api/health` and recipe create, read, update and list (ticket 1.3). Trash, search, tags and export/import are still to do. Do not add the rest unless asked; the plan is in `docs/tickets/` and the contract in `docs/api-model.md`.
+Not implemented yet: search on ingredients and tags, tag filters, forms, API calls from the frontend, trash, search on ingredients and tags. The API currently has `GET /api/health` and recipe create, read, update and list (ticket 1.3). Trash, search and export/import are still to do. `GET /api/tags` lists tag counts. Do not add the rest unless asked; the plan is in `docs/tickets/` and the contract in `docs/api-model.md`.
 
 Backend (provisional until ADR 0001 is accepted): Fastify with `better-sqlite3`, SQLite in WAL mode in `DATA_DIR`, deployed later with Docker on a Raspberry Pi 4B (ARM64). Keep SQLite access in `apps/api/src/db.ts` so the driver can be swapped (`node:sqlite` is the fallback). Do not add other backend technology unprompted. Any server hosting the built app must fall back to `index.html` for unknown paths so deep links like `/recepten/<id>` work. There is no AI API integration; Claude Code is only the development tool.
 

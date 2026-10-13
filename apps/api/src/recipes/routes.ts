@@ -5,12 +5,15 @@ import {
   createRecipe,
   getRecipe,
   listRecipes,
+  listTags,
   updateRecipe,
 } from './repository.ts'
 import { validateRecipeInput } from './validation.ts'
 
 export function registerRecipeRoutes(app: FastifyInstance, db: Database) {
   app.get('/api/recipes', async () => ({ items: listRecipes(db) }))
+
+  app.get('/api/tags', async () => ({ items: listTags(db) }))
 
   app.post('/api/recipes', async (request, reply) => {
     const result = validateRecipeInput(request.body)

@@ -207,4 +207,21 @@ describe('recipe routes', () => {
       'summaries have no ingredients',
     )
   })
+
+  it('lists tags with counts, grouped ignoring case, active recipes only', async () => {
+    await post({ title: 'A', servings: 1, tags: ['Winter', 'snel'] })
+    await post({ title: 'B', servings: 1, tags: ['winter'] })
+    const { id } = (
+      await post({ title: 'C', servings: 1, tags: ['winter', 'weg'] })
+    ).json()
+    t.db
+      .prepare('UPDATE recipe SET deleted_at = ? WHERE id = ?')
+      .run(new Date().toISOString(), id)
+
+    const { items } = (await t.app.inject({ url: '/api/tags' })).json()
+    assert.deepEqual(items, [
+      { name: 'snel', count: 1 },
+      { name: 'Winter', count: 2 },
+    ])
+  })
 })

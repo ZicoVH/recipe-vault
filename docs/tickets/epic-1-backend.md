@@ -36,7 +36,9 @@ Implemented: `POST`, `GET`, `PUT /api/recipes` and the active-recipe list, with 
 
 ## 1.4 Tags in the API
 
-Size: S. Depends on: 1.3. Covers: US6, D13.
+Size: S. Depends on: 1.3. Covers: US6, D13. Status: done.
+
+Trimming and case-insensitive deduplication are in the shared validator (ticket 1.3). This ticket added `GET /api/tags`, which lists tags of active recipes with counts, grouped ignoring case.
 
 - Tags are trimmed.
 - A tag that duplicates an existing one, ignoring case, is not created twice.

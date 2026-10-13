@@ -158,3 +158,18 @@ export function listRecipes(db: Database): RecipeSummary[] {
     }))
     .sort((a, b) => collator.compare(a.title, b.title))
 }
+
+export type TagCount = { name: string; count: number }
+
+/** Tags used by active recipes with their counts, grouped ignoring case. */
+export function listTags(db: Database): TagCount[] {
+  const rows = db
+    .prepare(
+      `SELECT MIN(t.name) AS name, COUNT(*) AS count
+       FROM tag t JOIN recipe r ON r.id = t.recipe_id
+       WHERE r.deleted_at IS NULL
+       GROUP BY t.name COLLATE NOCASE`,
+    )
+    .all() as TagCount[]
+  return rows.sort((a, b) => collator.compare(a.name, b.name))
+}
