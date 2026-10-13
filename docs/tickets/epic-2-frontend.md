@@ -48,3 +48,13 @@ Size: M. Depends on: 1.7. Covers: US7, US8.
 
 - Export downloads the JSON file.
 - Import shows a Dutch success message with the count, or a clear rejection message.
+
+## 2.6 Warn about unsaved changes in the recipe form
+
+Size: S. Depends on: 2.2. Covers: US1, US3.
+
+- Leaving the create or edit page with unsaved changes asks for confirmation. This covers Annuleren, any link and the browser back button.
+- Staying keeps everything the user typed.
+- There is no warning when nothing was changed, or after a successful save.
+- The question is in Dutch and works with the keyboard and a screen reader.
+- Removing a step or ingredient can be undone, or asks for confirmation (to be decided).

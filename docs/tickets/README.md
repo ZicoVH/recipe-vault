@@ -13,7 +13,7 @@ Derived from `docs/requirements.md` (MVP baseline) and `docs/spike-pi-sqlite.md`
 | 0.5 | Update project documentation            | S    | 0.2        | D3, R5        | todo   |
 | 0.6 | Restructure repo into npm workspaces    | M    | -          | ADR layout    | done   |
 | 1.1 | Backend skeleton and persistent storage | M    | 0.4        | US10          | done   |
-| 1.2 | Docker image for ARM64 and deploy to Pi | M    | 1.1        | US10, R2      | done   |
+| 1.2 | Docker image for ARM64 and deploy to Pi | M    | 1.1        | US10, R2      | todo   |
 | 1.3 | Recipe CRUD API                         | L    | 1.1        | US1, US3      | done   |
 | 1.4 | Tags in the API                         | S    | 1.3        | US6, D13      | done   |
 | 1.5 | Trash API                               | M    | 1.3        | US4, D10      | done   |
@@ -22,8 +22,9 @@ Derived from `docs/requirements.md` (MVP baseline) and `docs/spike-pi-sqlite.md`
 | 2.1 | Replace mock data with the API          | M    | 1.3        | US2           | done   |
 | 2.2 | Create and edit recipe form             | L    | 1.3, 1.4   | US1, US3, US6 | done   |
 | 2.3 | Delete, trash and restore UI            | M    | 1.5        | US4           | done   |
-| 2.4 | Extend search to ingredients and tags   | S    | 1.6        | US5           | done   |
-| 2.5 | Export and import UI                    | M    | 1.7        | US7, US8      | done   |
+| 2.4 | Extend search to ingredients and tags   | S    | 1.6        | US5           | todo   |
+| 2.5 | Export and import UI                    | M    | 1.7        | US7, US8      | todo   |
+| 2.6 | Warn about unsaved changes in the form  | S    | 2.2        | US1, US3      | todo   |
 | 3.1 | Backup and restore procedure            | M    | 1.2        | US9, R1       | todo   |
 
 ## Files
