@@ -21,6 +21,17 @@ Routing uses [React Router](https://reactrouter.com). Only title search is imple
 
 See [docs/requirements.md](docs/requirements.md) for the MVP scope, decisions and acceptance criteria.
 
+## Repository layout
+
+An npm workspaces monorepo:
+
+- `apps/web`: the React + TypeScript frontend (Vite).
+- `apps/api`: the backend, planned and not created yet.
+- `docs/`: requirements, the architecture decision record, the spike and the ticket list.
+- `spike/`: throwaway scripts for the Raspberry Pi spike. Not part of the application.
+
+Shared tooling (ESLint, Prettier, TypeScript) lives at the repository root.
+
 ## Getting started
 
 Requires Node.js 22.22 or newer and npm.
@@ -32,14 +43,15 @@ npm run dev
 
 ## Scripts
 
-| Script                 | Description                                    |
-| ---------------------- | ---------------------------------------------- |
-| `npm run dev`          | Start the Vite dev server with HMR             |
-| `npm run build`        | Type-check with `tsc -b`, then build to `dist` |
-| `npm run preview`      | Serve the production build locally             |
-| `npm run lint`         | Lint the project with ESLint                   |
-| `npm run format`       | Format all files with Prettier                 |
-| `npm run format:check` | Check formatting without changing files        |
+| Script                 | Description                                                   |
+| ---------------------- | ------------------------------------------------------------- |
+| `npm run dev`          | Start the frontend dev server with HMR                        |
+| `npm run build`        | Build every workspace (frontend: `tsc -b`, then `vite build`) |
+| `npm run preview`      | Serve the production frontend build locally                   |
+| `npm run lint`         | Lint the project with ESLint                                  |
+| `npm run format`       | Format all files with Prettier                                |
+| `npm run format:check` | Check formatting without changing files                       |
+| `npm run check`        | Run lint, format check and build                              |
 
 ## Tooling
 
@@ -51,7 +63,5 @@ npm run dev
 ## Before committing
 
 ```bash
-npm run lint
-npm run format:check
-npm run build
+npm run check
 ```

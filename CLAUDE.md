@@ -6,13 +6,14 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 Recipe Vault: a personal recipe collection app. Requirements are in `docs/requirements.md`, the source of truth for scope and decisions. Read it only when a task needs it.
 
-Current state: a React 19 + TypeScript frontend (Vite, npm) in Dutch, fed by mock data. Routing is React Router data mode (`createBrowserRouter`) in `src/App.tsx`. Keep the accessible navigation behavior in `Layout.tsx` when adding routes: one `h1` per page, focus moved to the `h1` after navigation, each page sets its own `<title>`, real links, visible focus.
+Current state: a React 19 + TypeScript frontend (Vite, npm) in Dutch, fed by mock data. Routing is React Router data mode (`createBrowserRouter`) in `apps/web/src/App.tsx`. Keep the accessible navigation behavior in `Layout.tsx` when adding routes: one `h1` per page, focus moved to the `h1` after navigation, each page sets its own `<title>`, real links, visible focus.
 
 Conventions:
 
-- Code lives in `src/` and `src/recipes/`. Components take recipes as props; only `src/App.tsx` imports `mockRecipes.ts`.
-- Styling uses CSS Modules plus tokens in `src/index.css`.
-- The `Recipe` type in `src/recipes/types.ts` is a temporary model for mock data, not the final model or an API contract. Ingredient amounts are free display text, so scaling is not supported.
+- The repo is an npm workspaces monorepo: `apps/web` (frontend) and, once created, `apps/api` (backend). Shared tooling configs (ESLint, Prettier) are at the root. `spike/` is throwaway and not a workspace.
+- Frontend code lives in `apps/web/src/` and `apps/web/src/recipes/`. Components take recipes as props; only `apps/web/src/App.tsx` imports `mockRecipes.ts`.
+- Styling uses CSS Modules plus tokens in `apps/web/src/index.css`.
+- The `Recipe` type in `apps/web/src/recipes/types.ts` is a temporary model for mock data, not the final model or an API contract. Ingredient amounts are free display text, so scaling is not supported.
 - The UI is in Dutch; code and technical docs stay in English.
 
 Not implemented yet: search on ingredients and tags, tag filters, forms, CRUD, persistence, API calls and the backend. Do not add them unless asked.
@@ -21,12 +22,12 @@ Planned: a backend and database, deployed with Docker on a Raspberry Pi 4B (ARM6
 
 ## Commands
 
-- `npm run dev` — Vite dev server with HMR
+- `npm run dev` — frontend Vite dev server with HMR
 - `npm run check` — lint, `format:check` and build in one go (type errors fail the build)
 - `npm run format` — Prettier write
 - Before finishing a change, run `npm run check`.
-- A hook runs Prettier and ESLint on each edited `.ts`/`.tsx`/`.css` file in `src/` and reports problems.
-- After meaningful frontend changes (beyond trivial edits in `src/`) and before committing, run the `frontend-reviewer` subagent (`.claude/agents/frontend-reviewer.md`). It is read-only and does not run the build. Triage its findings and report them; do not apply fixes the user has not approved.
+- A hook runs Prettier and ESLint on each edited `.ts`/`.tsx`/`.css` file in `apps/*/src/` and reports problems.
+- After meaningful frontend changes (beyond trivial edits in `apps/web/src/`) and before committing, run the `frontend-reviewer` subagent (`.claude/agents/frontend-reviewer.md`). It is read-only and does not run the build. Triage its findings and report them; do not apply fixes the user has not approved.
 
 There is no test runner yet. Do not add one unless asked.
 
@@ -38,7 +39,7 @@ Tickets live in `docs/tickets/` (index and status in `README.md`, one file per e
 
 - ESLint uses the flat config in `eslint.config.js`. `eslint-config-prettier` is last in `extends`; keep it last. Do not reintroduce Oxlint.
 - Prettier: no semicolons, single quotes (`.prettierrc`).
-- TypeScript project references: `tsconfig.app.json` (`src`) and `tsconfig.node.json` (Vite config); `tsc -b` checks both.
+- TypeScript project references in `apps/web`: `tsconfig.app.json` (`src`) and `tsconfig.node.json` (Vite config); `tsc -b` checks both.
 - `verbatimModuleSyntax` (use `import type`) and `erasableSyntaxOnly` (no enums, namespaces or constructor parameter properties) are on.
 - `noUnusedLocals` and `noUnusedParameters` are on, so unused variables fail the build.
 - `react-router` 8 needs Node 22.22 or newer.

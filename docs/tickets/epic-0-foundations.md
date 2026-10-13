@@ -42,3 +42,13 @@ Size: S. Depends on: 0.2.
 
 - `CLAUDE.md` and `README.md` no longer say "no backend" (D3, R5).
 - The chosen technology and its commands are documented briefly.
+
+## 0.6 Restructure repo into npm workspaces
+
+Size: M. Depends on: none. Status: done.
+
+- The frontend lives in `apps/web` and keeps its Git history (`git mv`).
+- The root `package.json` defines the workspaces. ESLint, Prettier and TypeScript stay at the root.
+- `npm run check` (lint, format check, build) passes and the build output is unchanged.
+- The format/lint hook, permission rules, `CLAUDE.md` and `README.md` use the new paths.
+- `apps/api` is not created here. That happens in ticket 1.1.

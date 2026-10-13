@@ -11,8 +11,9 @@
     ],
     "deny": [
       "Read(./package-lock.json)",
-      "Read(./dist/**)",
+      "Read(./apps/*/dist/**)",
       "Read(./node_modules/**)",
+      "Read(./apps/*/node_modules/**)",
       "Read(./.idea/**)"
     ]
   },

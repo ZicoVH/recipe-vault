@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # PostToolUse hook for Edit and Write. Checks that an edited .ts, .tsx or .css
-# file in src/ is formatted with the project's Prettier, and that .ts and .tsx
+# file in apps/*/src/ is formatted with the project's Prettier, and that .ts and .tsx
 # files pass ESLint. Reports problems to Claude. It never modifies a file.
 # Needs bash and jq.
 #
@@ -44,7 +44,7 @@ rel=${abs#"$root"/}
 [ "$rel" != "$abs" ] || exit 0
 
 case $rel in
-  src/*.ts | src/*.tsx | src/*.css) ;;
+  apps/*/src/*.ts | apps/*/src/*.tsx | apps/*/src/*.css) ;;
   *) exit 0 ;;
 esac
 
