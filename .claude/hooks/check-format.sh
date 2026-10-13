@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 # PostToolUse hook for Edit and Write. Checks that an edited .ts, .tsx or .css
-# file in src/ is formatted with the project's Prettier, and reports drift to
-# Claude. It never modifies a file. Needs bash and jq.
+# file in src/ is formatted with the project's Prettier, and that .ts and .tsx
+# files pass ESLint. Reports problems to Claude. It never modifies a file.
+# Needs bash and jq.
 #
 # Exit codes: 0 = nothing to report, 2 = file is not formatted (stderr goes to
 # Claude), 1 = the hook itself failed (a notice for the user, never blocks).
@@ -59,13 +60,39 @@ fi
 status=$?
 
 case $status in
-  0) exit 0 ;;
+  0) ;;
   1)
     echo "Prettier: $rel is not formatted. Run: npx prettier --write $rel" >&2
     exit 2
     ;;
   *)
     echo "check-format hook: prettier failed on $rel (exit $status)" >&2
+    exit 1
+    ;;
+esac
+
+# Formatting is fine, so lint the single edited file (.css is not linted).
+case $rel in
+  *.css) exit 0 ;;
+esac
+
+eslint=$root/node_modules/.bin/eslint
+if [ ! -x "$eslint" ]; then
+  echo 'check-format hook: node_modules/.bin/eslint not found' >&2
+  exit 1
+fi
+
+lint_output=$(cd "$root" && "$eslint" "$abs" 2>&1)
+status=$?
+
+case $status in
+  0) exit 0 ;;
+  1)
+    printf 'ESLint: %s has problems:\n%s\n' "$rel" "$lint_output" >&2
+    exit 2
+    ;;
+  *)
+    echo "check-format hook: eslint failed on $rel (exit $status)" >&2
     exit 1
     ;;
 esac

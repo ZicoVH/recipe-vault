@@ -1,4 +1,21 @@
 {
+  "permissions": {
+    "allow": [
+      "Bash(npm run lint)",
+      "Bash(npm run format:check)",
+      "Bash(npm run build)",
+      "Bash(npm run check)",
+      "Bash(git status)",
+      "Bash(git diff:*)",
+      "Bash(git log:*)"
+    ],
+    "deny": [
+      "Read(./package-lock.json)",
+      "Read(./dist/**)",
+      "Read(./node_modules/**)",
+      "Read(./.idea/**)"
+    ]
+  },
   "hooks": {
     "PostToolUse": [
       {
@@ -7,7 +24,7 @@
           {
             "type": "command",
             "command": "bash \"$CLAUDE_PROJECT_DIR/.claude/hooks/check-format.sh\"",
-            "timeout": 20
+            "timeout": 30
           }
         ]
       }
