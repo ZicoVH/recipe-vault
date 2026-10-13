@@ -30,6 +30,10 @@ Planned: a backend and database, deployed with Docker on a Raspberry Pi 4B (ARM6
 
 There is no test runner yet. Do not add one unless asked.
 
+## Tickets
+
+Tickets live in `docs/tickets/` (index and status in `README.md`, one file per epic). Work one ticket at a time. After finishing each ticket and before starting the next: set its status to `done` in the index, run the relevant checks, then commit and push to `origin/main`. The user authorized this standing commit and push per ticket. Use a clear commit message in the form `type: summary (ticket X.Y)` with a short body of what changed. Do not batch several tickets into one commit.
+
 ## Tooling notes
 
 - ESLint uses the flat config in `eslint.config.js`. `eslint-config-prettier` is last in `extends`; keep it last. Do not reintroduce Oxlint.
