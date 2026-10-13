@@ -1,6 +1,6 @@
 # Spike: Node.js + SQLite on Raspberry Pi 4B
 
-Status: proposed, not run. Pass/fail criteria are to be finalized before the spike is executed.
+Status: criteria finalized, not run. Thresholds were set in ticket 0.1 and are estimates, not measured values.
 
 ## Purpose
 
@@ -31,7 +31,7 @@ Record for each run: Pi OS and version, kernel, Docker version, Node version, im
 
 ## Checklist
 
-Each check records the measured result and a pass or fail. Criteria marked TBD are numeric thresholds to be agreed before the spike runs.
+Each check records the measured result and a pass or fail. Numeric thresholds are defined in the Thresholds section.
 
 ### 1. ARM64 compatibility
 
@@ -58,7 +58,7 @@ Each check records the measured result and a pass or fail. Criteria marked TBD a
 - The backup file opens and passes `PRAGMA integrity_check`.
 - The backup is copied to separate storage (a different physical device from the one holding the live database).
 - Full restore: stop the app, wipe the data volume, restore from the backup, start the app, and verify recipe counts and sample content.
-- Time and disk space for backup and restore are recorded.
+- Time and disk space for backup and restore are recorded. Backup takes at most 60 s. Restore, including stop, wipe and start, takes at most 5 min.
 
 **Pass:** restored data matches the source and the integrity check passes. **Fail:** corrupted or incomplete backup, or restore not reproducible.
 
@@ -76,7 +76,7 @@ Each check records the measured result and a pass or fail. Criteria marked TBD a
 - Measure idle, and under a simple load: a seeded set of about 500 recipes and repeated searches and edits.
 - Record container memory and total system memory, and whether swap is used.
 
-**Pass:** TBD, to be set as a maximum container RAM and a minimum free system memory. **Fail:** exceeds the agreed limits or causes swapping under the test load.
+**Pass:** container RAM at most 256 MB and at least 300 MB of system memory available under the test load, with no swap in use. **Fail:** exceeds these limits or causes swapping.
 
 ### 6. Startup and search performance
 
@@ -84,7 +84,7 @@ Each check records the measured result and a pass or fail. Criteria marked TBD a
 - Search latency with about 500 seeded recipes, measured on the Pi over the local network.
 - Record SSD results. If the optional microSD run is done, compare it with the SSD.
 
-**Pass:** TBD, to be set as a maximum start time and a maximum search latency (the goal is that it feels instant on a phone). **Fail:** exceeds the agreed limits.
+**Pass:** cold start at most 10 s to first successful response, and search p95 latency at most 200 ms over the local network with about 500 seeded recipes (the goal is that it feels instant on a phone). **Fail:** exceeds these limits.
 
 ### 7. Fallback checks (only if check 1 or 2 fails)
 
@@ -92,12 +92,29 @@ Each check records the measured result and a pass or fail. Criteria marked TBD a
 - A different backend language that ships SQLite in its standard library (for example Python).
 - Record the cost of each fallback before any architecture change.
 
-## Criteria to finalize before running
+## Thresholds
 
-- Numeric thresholds for RAM, startup time and search latency.
-- Maximum acceptable backup and restore duration.
-- Seed dataset definition (size, language mix, accents).
-- Confirm that SSD results are required for a "go", and that optional microSD results are informational only.
+Set in ticket 0.1. These are estimates chosen for a 2 GB Pi that is shared with other services, not measured values. Revisit them if the spike shows they are unrealistic.
+
+| Check          | Pass criterion                                       |
+| -------------- | ---------------------------------------------------- |
+| Container RAM  | At most 256 MB under the test load                   |
+| System memory  | At least 300 MB available, no swap in use            |
+| Cold start     | At most 10 s to first successful response            |
+| Search latency | p95 at most 200 ms on the LAN with about 500 recipes |
+| Backup         | At most 60 s                                         |
+| Restore        | At most 5 min, including stop, wipe and start        |
+
+## Seed dataset
+
+- About 500 recipes: roughly 70% Dutch, 20% French or other accented content, 10% English.
+- Each recipe has 5 to 25 ingredients, 3 to 12 steps and 0 to 6 tags.
+- Fixed test cases: "Crème brûlée", "Crêpes", "Saumon à l'oseille", plus Dutch titles.
+- Some recipes are trashed, to verify that search excludes them.
+
+## Environment requirement
+
+SSD results are required for a "go". Optional microSD results are informational only.
 
 ## Assumptions
 
