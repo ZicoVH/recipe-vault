@@ -36,7 +36,9 @@ Delete is a button at the bottom of the recipe page: one click, no confirmation,
 
 ## 2.4 Extend search to ingredients and tags
 
-Size: S. Depends on: 1.6. Covers: US5.
+Size: S. Depends on: 1.6. Covers: US5. Status: done.
+
+The overview loader reads `?q=` and `tag=` from the URL and asks the API, so the browser no longer filters. Typing is sent after 250 ms without typing. The tag filter shows every tag in use with its count, as checkboxes shaped like chips. The old client-side title filter is removed. Only the 12 most used tags (and any chosen tag) are shown, the rest sits behind a "Meer tags" toggle. If the tag list request fails, the search still works without the filter. Verified with a jsdom test of the real app against a live API (about 40 checks, including a slowed API), not in a real browser.
 
 - The existing `?q=` behavior is kept.
 - An empty result shows a clear Dutch message.

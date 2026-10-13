@@ -12,10 +12,10 @@ Early development. The backend API is complete for the MVP, and the frontend is 
 
 **Frontend** (`apps/web`): a React + TypeScript app built with Vite, in Dutch, that reads recipes from the API. It has:
 
-- A recipe overview: a responsive grid of recipe cards with title, optional preparation and cooking time, and tags. A search field filters the cards by title only, ignoring case and accents. The query is kept in the URL as `?q=`.
+- A recipe overview: a responsive grid of recipe cards with title, optional preparation and cooking time, and tags. A search field finds recipes by title, ingredient or tag, ignoring case and accents, and a tag filter narrows the list to recipes that have all chosen tags. Both are kept in the URL (`?q=` and `tag=`), so a search can be bookmarked.
 - A recipe detail page at `/recepten/<id>` with servings, times, tags, ingredients and ordered steps. Direct links and bookmarks work, and unknown recipes show a not-found page.
 
-Routing uses [React Router](https://reactrouter.com). The frontend can create, edit, delete and restore recipes (with a trash view). It does not have export and import, or search on ingredients and tags yet. Its title search runs in the browser. These are planned in `docs/tickets/`.
+Routing uses [React Router](https://reactrouter.com). The frontend can create, edit, delete and restore recipes (with a trash view). It does not have export and import yet. That is planned in `docs/tickets/`.
 
 ## Planned architecture
 

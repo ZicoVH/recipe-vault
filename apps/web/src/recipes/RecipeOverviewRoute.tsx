@@ -3,8 +3,8 @@ import RecipeOverview from './RecipeOverview'
 import type { overviewLoader } from './loaders'
 
 function RecipeOverviewRoute() {
-  const recipes = useLoaderData<Awaited<ReturnType<typeof overviewLoader>>>()
-  return <RecipeOverview recipes={recipes} />
+  const data = useLoaderData<Awaited<ReturnType<typeof overviewLoader>>>()
+  return <RecipeOverview data={data} />
 }
 
 export default RecipeOverviewRoute

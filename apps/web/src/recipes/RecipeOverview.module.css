@@ -47,3 +47,15 @@
   margin-top: 4px;
   overflow-wrap: anywhere;
 }
+
+.busy {
+  opacity: 0.6;
+  transition: opacity 0.15s;
+}
+
+.clear {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  color: var(--accent);
+}

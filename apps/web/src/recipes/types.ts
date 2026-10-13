@@ -19,6 +19,8 @@ export type RecipeSummary = {
   deletedAt: string | null
 }
 
+export type TagCount = { name: string; count: number }
+
 export type Recipe = RecipeSummary & {
   ingredients: Ingredient[]
   steps: string[]

@@ -22,7 +22,6 @@ import {
 import TrashRoute from './recipes/trash/TrashRoute'
 import {
   detailLoader,
-  ignoreSearchChange,
   keepFormAfterFailedSave,
   overviewLoader,
   trashLoader,
@@ -42,7 +41,6 @@ const router = createBrowserRouter([
             index: true,
             element: <RecipeOverviewRoute />,
             loader: overviewLoader,
-            shouldRevalidate: ignoreSearchChange,
           },
           {
             path: 'prullenbak',

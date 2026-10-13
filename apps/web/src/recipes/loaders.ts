@@ -1,28 +1,7 @@
 import type { LoaderFunctionArgs, ShouldRevalidateFunction } from 'react-router'
 import { ApiError, getJson } from '../api/client'
-import type { Recipe, RecipeSummary } from './types'
-
-/**
- * The search box keeps its query in the URL (`?q=`), and each keystroke is a
- * navigation. The list does not depend on the query yet (title search runs in
- * the browser), so a change of the query string alone must not refetch it.
- * Revisit this when search moves to the API (ticket 2.4).
- */
-export const ignoreSearchChange: ShouldRevalidateFunction = ({
-  currentUrl,
-  nextUrl,
-  formMethod,
-  defaultShouldRevalidate,
-}) => {
-  if (
-    !formMethod &&
-    currentUrl.pathname === nextUrl.pathname &&
-    currentUrl.search !== nextUrl.search
-  ) {
-    return false
-  }
-  return defaultShouldRevalidate
-}
+import { normalizeTags } from './searchParams'
+import type { Recipe, RecipeSummary, TagCount } from './types'
 
 /**
  * After a save that did not succeed (server unreachable, invalid, 404, 409)
@@ -54,14 +33,44 @@ export async function trashLoader({
   return items
 }
 
+/** What the overview shows: the matching recipes and the query they match. */
+export type OverviewData = {
+  recipes: RecipeSummary[]
+  /** All tags in use, for the tag filter. */
+  tags: TagCount[]
+  /** The search text and tags the recipes were loaded for. */
+  q: string
+  selectedTags: string[]
+}
+
+/** Search text (`?q=`) and tag filters (`tag=`, all must match) come from the URL. */
 export async function overviewLoader({
   request,
-}: LoaderFunctionArgs): Promise<RecipeSummary[]> {
-  const { items } = await getJson<{ items: RecipeSummary[] }>(
-    '/api/recipes',
-    request.signal,
-  )
-  return items
+}: LoaderFunctionArgs): Promise<OverviewData> {
+  const url = new URL(request.url)
+  const q = (url.searchParams.get('q') ?? '').trim()
+  const selectedTags = normalizeTags(url.searchParams.getAll('tag'))
+
+  const params = new URLSearchParams()
+  if (q !== '') params.set('q', q)
+  for (const tag of selectedTags) params.append('tag', tag)
+  const query = params.toString()
+
+  const [list, tagList] = await Promise.all([
+    getJson<{ items: RecipeSummary[] }>(
+      `/api/recipes${query ? `?${query}` : ''}`,
+      request.signal,
+    ),
+    // The tag list only feeds the filter, so a failure here must not take a
+    // working search down with it.
+    getJson<{ items: TagCount[] }>('/api/tags', request.signal).catch(
+      (error: unknown) => {
+        if (request.signal.aborted) throw error
+        return { items: [] as TagCount[] }
+      },
+    ),
+  ])
+  return { recipes: list.items, tags: tagList.items, q, selectedTags }
 }
 
 /**
