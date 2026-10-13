@@ -55,7 +55,9 @@ Endpoints: `DELETE /api/recipes/:id`, `GET /api/trash`, `POST /api/trash/:id/res
 
 ## 1.6 Search API
 
-Size: M. Depends on: 1.3, 1.5. Covers: US5, D9.
+Size: M. Depends on: 1.3, 1.5. Covers: US5, D9. Status: done.
+
+Implemented with SQLite FTS5 (`unicode61 remove_diacritics 2`) in migration 0003. Ligatures (œ, æ, ß, ø) are folded in `apps/api/src/recipes/search.ts`. The latency target from the spike is not measured here, only on the Pi.
 
 - Search covers title, ingredient name and tags.
 - Matching ignores case and accents. For example, "creme brulee" finds "Crème brûlée".

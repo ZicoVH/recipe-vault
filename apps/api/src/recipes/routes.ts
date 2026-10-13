@@ -15,7 +15,18 @@ import {
 import { validateRecipeInput } from './validation.ts'
 
 export function registerRecipeRoutes(app: FastifyInstance, db: Database) {
-  app.get('/api/recipes', async () => ({ items: listRecipes(db) }))
+  app.get<{ Querystring: { q?: string | string[]; tag?: string | string[] } }>(
+    '/api/recipes',
+    async (request) => {
+      const { q, tag } = request.query
+      return {
+        items: listRecipes(db, {
+          q: Array.isArray(q) ? q.join(' ') : q,
+          tags: tag === undefined ? [] : [tag].flat(),
+        }),
+      }
+    },
+  )
 
   app.get('/api/tags', async () => ({ items: listTags(db) }))
 

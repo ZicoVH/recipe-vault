@@ -1,5 +1,11 @@
 import type { Database } from 'better-sqlite3'
 import { randomUUID } from 'node:crypto'
+import {
+  reindexRecipe,
+  removeFromIndex,
+  searchTerms,
+  toMatchQuery,
+} from './search.ts'
 import type { Ingredient, Recipe, RecipeInput, RecipeSummary } from './types.ts'
 
 type RecipeRow = {
@@ -58,6 +64,7 @@ export function createRecipe(db: Database, input: RecipeInput): Recipe {
       now,
     )
     writeChildren(db, id, input)
+    reindexRecipe(db, id)
   })()
   return getRecipe(db, id) as Recipe
 }
@@ -128,15 +135,34 @@ export function updateRecipe(
     db.prepare(`DELETE FROM step WHERE recipe_id = ?`).run(id)
     db.prepare(`DELETE FROM tag WHERE recipe_id = ?`).run(id)
     writeChildren(db, id, input)
+    reindexRecipe(db, id)
   })()
   return { status: 'ok', recipe: getRecipe(db, id) as Recipe }
 }
 
-/** Active recipes, sorted by title ignoring case and accents. */
-export function listRecipes(db: Database): RecipeSummary[] {
-  const rows = db
-    .prepare(`SELECT * FROM recipe WHERE deleted_at IS NULL`)
-    .all() as RecipeRow[]
+export type RecipeFilter = {
+  /** Free text: every word must start a word in the title, an ingredient or a tag. */
+  q?: string
+  /** Every tag must be on the recipe (AND), compared ignoring case. */
+  tags?: string[]
+}
+
+/** Active recipes that match the filter, sorted by title ignoring case and accents. */
+export function listRecipes(
+  db: Database,
+  filter: RecipeFilter = {},
+): RecipeSummary[] {
+  const terms = filter.q ? searchTerms(filter.q) : []
+  const rows = (
+    terms.length > 0
+      ? db
+          .prepare(
+            `SELECT r.* FROM recipe_fts f JOIN recipe r ON r.rowid = f.rowid
+             WHERE recipe_fts MATCH ? AND r.deleted_at IS NULL`,
+          )
+          .all(toMatchQuery(terms))
+      : db.prepare(`SELECT * FROM recipe WHERE deleted_at IS NULL`).all()
+  ) as RecipeRow[]
   const tagRows = db
     .prepare(`SELECT recipe_id, name FROM tag ORDER BY recipe_id, position`)
     .all() as { recipe_id: string; name: string }[]
@@ -146,6 +172,9 @@ export function listRecipes(db: Database): RecipeSummary[] {
     if (list) list.push(name)
     else tagsByRecipe.set(recipe_id, [name])
   }
+  const wanted = (filter.tags ?? [])
+    .map((tag) => tag.trim().toLowerCase())
+    .filter(Boolean)
   return rows
     .map((row) => ({
       id: row.id,
@@ -156,6 +185,10 @@ export function listRecipes(db: Database): RecipeSummary[] {
       tags: tagsByRecipe.get(row.id) ?? [],
       deletedAt: row.deleted_at,
     }))
+    .filter((recipe) => {
+      const have = recipe.tags.map((tag) => tag.toLowerCase())
+      return wanted.every((tag) => have.includes(tag))
+    })
     .sort((a, b) => collator.compare(a.title, b.title))
 }
 
@@ -237,6 +270,7 @@ export function deleteTrashedRecipe(
 ): TrashActionResult {
   const state = trashState(db, id)
   if (state !== 'trashed') return { status: state }
+  removeFromIndex(db, id)
   db.prepare(`DELETE FROM recipe WHERE id = ?`).run(id)
   return { status: 'ok', value: undefined }
 }
