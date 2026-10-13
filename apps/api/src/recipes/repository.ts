@@ -173,3 +173,70 @@ export function listTags(db: Database): TagCount[] {
     .all() as TagCount[]
   return rows.sort((a, b) => collator.compare(a.name, b.name))
 }
+
+/** Moves a recipe to the trash. Repeating it keeps the first deletion time. */
+export function trashRecipe(db: Database, id: string): 'ok' | 'not_found' {
+  const result = db
+    .prepare(
+      `UPDATE recipe SET deleted_at = COALESCE(deleted_at, ?) WHERE id = ?`,
+    )
+    .run(new Date().toISOString(), id)
+  return result.changes === 0 ? 'not_found' : 'ok'
+}
+
+/** Trashed recipes, most recently deleted first. */
+export function listTrash(db: Database): RecipeSummary[] {
+  const rows = db
+    .prepare(
+      `SELECT * FROM recipe WHERE deleted_at IS NOT NULL ORDER BY deleted_at DESC`,
+    )
+    .all() as RecipeRow[]
+  const tags = db.prepare(
+    `SELECT name FROM tag WHERE recipe_id = ? ORDER BY position`,
+  )
+  return rows.map((row) => ({
+    id: row.id,
+    title: row.title,
+    servings: row.servings,
+    prepTimeMinutes: row.prep_time_minutes,
+    cookTimeMinutes: row.cook_time_minutes,
+    tags: tags.pluck().all(row.id) as string[],
+    deletedAt: row.deleted_at,
+  }))
+}
+
+export type TrashActionResult<T = undefined> =
+  | { status: 'ok'; value: T }
+  | { status: 'not_found' }
+  | { status: 'not_in_trash' }
+
+function trashState(db: Database, id: string) {
+  const row = db
+    .prepare(`SELECT deleted_at FROM recipe WHERE id = ?`)
+    .get(id) as { deleted_at: string | null } | undefined
+  if (!row) return 'not_found' as const
+  return row.deleted_at === null
+    ? ('not_in_trash' as const)
+    : ('trashed' as const)
+}
+
+export function restoreRecipe(
+  db: Database,
+  id: string,
+): TrashActionResult<Recipe> {
+  const state = trashState(db, id)
+  if (state !== 'trashed') return { status: state }
+  db.prepare(`UPDATE recipe SET deleted_at = NULL WHERE id = ?`).run(id)
+  return { status: 'ok', value: getRecipe(db, id) as Recipe }
+}
+
+/** Permanently deletes a recipe. Only recipes in the trash can be removed. */
+export function deleteTrashedRecipe(
+  db: Database,
+  id: string,
+): TrashActionResult {
+  const state = trashState(db, id)
+  if (state !== 'trashed') return { status: state }
+  db.prepare(`DELETE FROM recipe WHERE id = ?`).run(id)
+  return { status: 'ok', value: undefined }
+}

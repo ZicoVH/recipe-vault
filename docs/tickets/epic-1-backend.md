@@ -45,7 +45,9 @@ Trimming and case-insensitive deduplication are in the shared validator (ticket 
 
 ## 1.5 Trash API
 
-Size: M. Depends on: 1.3. Covers: US4, D10.
+Size: M. Depends on: 1.3. Covers: US4, D10. Status: done.
+
+Endpoints: `DELETE /api/recipes/:id`, `GET /api/trash`, `POST /api/trash/:id/restore`, `DELETE /api/trash/:id`. There is no purge code, so nothing is removed automatically.
 
 - Delete moves a recipe to trash. Restore returns it with all data intact.
 - Permanent delete works only on trashed recipes.
