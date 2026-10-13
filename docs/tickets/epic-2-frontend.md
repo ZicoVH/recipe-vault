@@ -59,4 +59,4 @@ Size: S. Depends on: 2.2. Covers: US1, US3.
 - Staying keeps everything the user typed.
 - There is no warning when nothing was changed, or after a successful save.
 - The question is in Dutch and works with the keyboard and a screen reader.
-- Removing a step or ingredient can be undone, or asks for confirmation (to be decided).
+- Removing a step or ingredient can be undone, or asks for confirmation. Decision: neither. A removed row is cheap to retype, and the leave warning covers the bigger risk.

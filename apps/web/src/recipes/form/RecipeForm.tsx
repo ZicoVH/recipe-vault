@@ -1,6 +1,12 @@
 import { useEffect, useRef, useState } from 'react'
 import type { FormEvent } from 'react'
-import { Link, useActionData, useNavigation, useSubmit } from 'react-router'
+import {
+  Link,
+  useActionData,
+  useBlocker,
+  useNavigation,
+  useSubmit,
+} from 'react-router'
 import buttons from '../../Button.module.css'
 import type { Recipe } from '../types'
 import type { SaveResult } from './formActions'
@@ -11,6 +17,7 @@ import {
   ids,
   initialValues,
   mapServerErrors,
+  snapshot,
   validate,
 } from './formModel'
 import type {
@@ -21,6 +28,7 @@ import type {
   SummaryItem,
 } from './formModel'
 import IngredientsField from './IngredientsField'
+import LeaveDialog from './LeaveDialog'
 import styles from './RecipeForm.module.css'
 import StepsField from './StepsField'
 import TagsField from './TagsField'
@@ -51,6 +59,10 @@ function RecipeForm({ recipe }: RecipeFormProps) {
   // The save result the user has already moved past, so it is not shown again.
   const [dismissed, setDismissed] = useState<SaveResult | undefined>(undefined)
   const [attempt, setAttempt] = useState(0)
+  const [baseline] = useState(() => snapshot(values))
+  // True from the moment of saving, so the redirect after a successful save
+  // is not mistaken for leaving. Reset when the save did not succeed.
+  const saving = useRef(false)
 
   const actionData = useActionData<SaveResult>()
   const navigation = useNavigation()
@@ -58,6 +70,29 @@ function RecipeForm({ recipe }: RecipeFormProps) {
   // Also true while the redirect after a successful save loads, so a second
   // click cannot save the same recipe twice.
   const submitting = navigation.state !== 'idle'
+
+  const dirty = snapshot(values) !== baseline
+  // Covers links, Annuleren and the browser's Back and Forward.
+  const blocker = useBlocker(
+    ({ currentLocation, nextLocation }) =>
+      dirty &&
+      !saving.current &&
+      currentLocation.pathname !== nextLocation.pathname,
+  )
+
+  // Closing the tab or reloading cannot show our own dialog, only the
+  // browser's.
+  useEffect(() => {
+    if (!dirty) return
+    const warn = (event: BeforeUnloadEvent) => event.preventDefault()
+    window.addEventListener('beforeunload', warn)
+    return () => window.removeEventListener('beforeunload', warn)
+  }, [dirty])
+
+  // A reply means the save did not succeed (a success redirects).
+  useEffect(() => {
+    if (actionData) saving.current = false
+  }, [actionData])
 
   const summaryRef = useRef<HTMLDivElement>(null)
   // Focus to apply after the next render, once the new elements exist.
@@ -234,6 +269,7 @@ function RecipeForm({ recipe }: RecipeFormProps) {
     }
     setClientIssues(null)
     setSubmittedKeys(outcome.keys)
+    saving.current = true
     submit(
       { payload: outcome.payload },
       { method: 'post', encType: 'application/json' },
@@ -368,6 +404,12 @@ function RecipeForm({ recipe }: RecipeFormProps) {
           Annuleren
         </Link>
       </div>
+
+      <LeaveDialog
+        open={blocker.state === 'blocked'}
+        onStay={() => blocker.reset?.()}
+        onLeave={() => blocker.proceed?.()}
+      />
     </form>
   )
 }

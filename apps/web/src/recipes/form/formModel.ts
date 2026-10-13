@@ -77,6 +77,20 @@ export const ids = {
 let counter = 0
 const newKey = () => `r${++counter}`
 
+/** The typed content without row keys, to tell whether anything changed. */
+export function snapshot(values: FormValues): string {
+  return JSON.stringify([
+    values.title,
+    values.servings,
+    values.prepTimeMinutes,
+    values.cookTimeMinutes,
+    values.tags,
+    values.tagInput.trim(),
+    values.ingredients.map((r) => [r.quantity, r.unit, r.name, r.note]),
+    values.steps.map((r) => r.text),
+  ])
+}
+
 export const emptyIngredient = (): IngredientRow => ({
   key: newKey(),
   quantity: '',
