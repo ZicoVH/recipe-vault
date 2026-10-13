@@ -28,7 +28,7 @@ Size: S. Depends on: none.
 
 ## 0.4 Define the data and API model
 
-Size: M. Depends on: 0.2.
+Size: M. Depends on: 0.2 (proceeded provisionally on the proposed ADR). Status: done, see `docs/api-model.md`.
 
 - The ingredient model supports a name, optional quantity and unit, and free expressions (D5).
 - The recipe model covers servings (positive integer), optional prep/cook time, ordered steps, tags and a trashed state.
