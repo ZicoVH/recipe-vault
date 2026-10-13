@@ -8,13 +8,13 @@
   align-items: center;
   gap: 6px;
   min-height: 44px;
-  color: var(--accent);
+  color: var(--primary);
 }
 
 .heading {
   margin: 4px 0 8px;
   font-size: 1.75rem;
-  font-weight: 600;
+  font-weight: var(--heading-weight);
 }
 
 .intro {
@@ -30,7 +30,7 @@
 }
 
 .status:focus {
-  outline: 2px solid var(--accent);
+  outline: 2px solid var(--primary);
   outline-offset: 2px;
 }
 
@@ -38,7 +38,7 @@
   padding: 10px 14px;
   background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: 8px;
+  border-radius: var(--radius-s);
 }
 
 .failed {
@@ -58,13 +58,13 @@
   padding: 12px;
   background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: 8px;
+  border-radius: var(--radius-s);
 }
 
 .title {
   margin-bottom: 4px;
   font-size: 1.1rem;
-  font-weight: 600;
+  font-weight: var(--heading-weight);
   overflow-wrap: anywhere;
 }
 
@@ -83,11 +83,11 @@
   margin-top: 12px;
   padding: 12px;
   border: 2px solid var(--danger);
-  border-radius: 8px;
+  border-radius: var(--radius-s);
 }
 
 .confirm:focus {
-  outline: 2px solid var(--accent);
+  outline: 2px solid var(--primary);
   outline-offset: 2px;
 }
 

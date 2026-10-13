@@ -6,7 +6,7 @@
 .heading {
   margin: 4px 0 16px;
   font-size: 1.75rem;
-  font-weight: 600;
+  font-weight: var(--heading-weight);
   line-height: 1.2;
 }
 
@@ -15,18 +15,18 @@
   align-items: center;
   gap: 6px;
   min-height: 44px;
-  color: var(--accent);
+  color: var(--primary);
 }
 
 .summary {
   margin-bottom: 24px;
   padding: 12px 16px;
   border: 2px solid var(--danger);
-  border-radius: 8px;
+  border-radius: var(--radius-s);
 }
 
 .summary:focus {
-  outline: 2px solid var(--accent);
+  outline: 2px solid var(--primary);
   outline-offset: 2px;
 }
 
@@ -71,8 +71,8 @@
   font: inherit;
   color: var(--text-h);
   background: var(--surface);
-  border: 1px solid var(--text);
-  border-radius: 8px;
+  border: 1px solid var(--border-input);
+  border-radius: var(--radius-s);
 }
 
 textarea.input {
@@ -115,7 +115,7 @@ textarea.input {
   padding: 0;
   margin-bottom: 8px;
   font-size: 1.25rem;
-  font-weight: 600;
+  font-weight: var(--heading-weight);
   color: var(--text-h);
 }
 
@@ -130,7 +130,7 @@ textarea.input {
   padding: 12px;
   background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: 8px;
+  border-radius: var(--radius-s);
 }
 
 .rowGroup {
@@ -176,7 +176,7 @@ textarea.input {
   color: var(--tag-text);
   background: var(--tag-bg);
   border: 0;
-  border-radius: 999px;
+  border-radius: var(--radius-control);
   cursor: pointer;
 }
 
@@ -215,12 +215,12 @@ textarea.input {
   padding: 20px;
   color: var(--text);
   background: var(--bg);
-  border: 2px solid var(--accent);
-  border-radius: 8px;
+  border: 2px solid var(--primary);
+  border-radius: var(--radius-s);
 }
 
 .leaveDialog::backdrop {
-  background: rgb(0 0 0 / 50%);
+  background: var(--scrim);
 }
 
 .leaveTitle {

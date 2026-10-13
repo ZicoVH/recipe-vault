@@ -8,13 +8,13 @@
   align-items: center;
   gap: 6px;
   min-height: 44px;
-  color: var(--accent);
+  color: var(--primary);
 }
 
 .heading {
   margin: 4px 0 16px;
   font-size: 1.75rem;
-  font-weight: 600;
+  font-weight: var(--heading-weight);
 }
 
 .block {
@@ -22,7 +22,7 @@
   padding: 16px;
   background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: 8px;
+  border-radius: var(--radius-s);
 }
 
 .block p {
@@ -32,7 +32,7 @@
 .subheading {
   margin-bottom: 8px;
   font-size: 1.25rem;
-  font-weight: 600;
+  font-weight: var(--heading-weight);
 }
 
 .exportStatus {
@@ -44,7 +44,7 @@
 }
 
 .result:focus {
-  outline: 2px solid var(--accent);
+  outline: 2px solid var(--primary);
   outline-offset: 2px;
 }
 
@@ -57,7 +57,7 @@
   padding: 10px 14px;
   background: var(--bg);
   border: 1px solid var(--border);
-  border-radius: 8px;
+  border-radius: var(--radius-s);
 }
 
 .failed {

@@ -7,6 +7,7 @@ import {
   useNavigation,
 } from 'react-router'
 import styles from './Layout.module.css'
+import ThemeSwitcher from './theme/ThemeSwitcher'
 
 function Layout() {
   const { pathname } = useLocation()
@@ -44,6 +45,7 @@ function Layout() {
               Jouw persoonlijke receptencollectie
             </p>
           )}
+          <ThemeSwitcher />
         </div>
       </header>
       <div className={styles.page}>

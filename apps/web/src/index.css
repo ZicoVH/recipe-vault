@@ -1,45 +1,11 @@
 :root {
-  --text: #5a4d43;
-  --text-h: #2a1d14;
-  --bg: #fbf6ef;
-  --surface: #fff;
-  --border: #e6d8c6;
-  --tag-bg: #f5e3d0;
-  --tag-text: #7a3b1d;
-  --accent: #3f6b3a;
-  --accent-hover: #2f5530;
-  --danger: #a32018;
-  --shadow: 0 1px 2px rgb(74 45 20 / 8%), 0 4px 14px rgb(74 45 20 / 7%);
-  --shadow-lifted:
-    0 2px 4px rgb(74 45 20 / 10%), 0 10px 24px rgb(74 45 20 / 12%);
-  --font-display:
-    ui-serif, 'Iowan Old Style', 'Palatino Linotype', Palatino, Georgia, serif;
-
   font:
     18px/150% system-ui,
     'Segoe UI',
     Roboto,
     sans-serif;
-  color-scheme: light dark;
   color: var(--text);
   background: var(--bg);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --text: #c8bcb0;
-    --text-h: #f7efe6;
-    --bg: #1b1714;
-    --surface: #26211c;
-    --border: #3b332b;
-    --tag-bg: #3a2e24;
-    --tag-text: #f0c9a4;
-    --accent: #9fcf86;
-    --accent-hover: #b6dea1;
-    --danger: #ff9c90;
-    --shadow: 0 1px 2px rgb(0 0 0 / 30%), 0 4px 14px rgb(0 0 0 / 25%);
-    --shadow-lifted: 0 2px 4px rgb(0 0 0 / 35%), 0 10px 24px rgb(0 0 0 / 35%);
-  }
 }
 
 *,
@@ -64,7 +30,8 @@ h2,
 h3 {
   color: var(--text-h);
   font-family: var(--font-display);
-  letter-spacing: -0.01em;
+  font-weight: var(--heading-weight);
+  letter-spacing: var(--heading-tracking);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -77,7 +44,7 @@ h3 {
 }
 
 :focus-visible {
-  outline: 2px solid var(--accent);
+  outline: 2px solid var(--primary);
   outline-offset: 2px;
 }
 

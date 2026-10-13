@@ -1,0 +1,145 @@
+/*
+ * EXPERIMENT: three visual themes, chosen with the switcher in the header.
+ * Components only use the tokens below, never raw colours or radii.
+ *
+ * To keep one theme: copy its declarations into the `:root` block of
+ * index.css (without the selector), delete this folder, the import in
+ * main.tsx, `initTheme()` in main.tsx and <ThemeSwitcher /> in Layout.tsx.
+ *
+ * Contrast (WCAG): body text, links, buttons and chips are at least 4.5:1,
+ * input borders at least 3:1. `--accent` is decorative (borders, large step
+ * numbers) and not used for small text.
+ *
+ * Without a stored choice, theme.ts picks Midnight for a dark OS setting. A
+ * single kept theme no longer follows the OS unless you also keep a dark block.
+ */
+
+/* Theme 1: Warm Editorial (default). Cookbook: serif, hairlines, small radii.
+   Deviation from the brief: --primary is #5D6B53, not #738467, because
+   #738467 gives only 4.0:1 against white. */
+:root,
+:root[data-theme='editorial'] {
+  color-scheme: light;
+
+  --bg: #f5f0e8;
+  --surface: #fff;
+  --border: #ddd1bf;
+  --border-input: #8b8272;
+  --text: #5c574e;
+  --text-h: #292824;
+  --primary: #5d6b53;
+  --primary-hover: #4c5844;
+  --on-primary: #fff;
+  --accent: #bc7655;
+  --tag-bg: #ede5d9;
+  --tag-text: #6a3f25;
+  --danger: #a3261b;
+  --scrim: rgb(41 40 36 / 55%);
+
+  --radius-s: 4px;
+  --radius-m: 6px;
+  --radius-control: 4px;
+
+  --font-display:
+    'Iowan Old Style', 'Palatino Linotype', Palatino, 'Book Antiqua', Georgia,
+    serif;
+  --heading-weight: 600;
+  --heading-tracking: -0.01em;
+  --label-transform: uppercase;
+  --label-tracking: 0.08em;
+  --label-size: 0.72rem;
+  --label-weight: 600;
+
+  --shadow: 0 1px 0 rgb(41 40 36 / 5%);
+  --shadow-lifted: 0 8px 20px rgb(41 40 36 / 10%);
+  --card-bg: var(--surface);
+  --card-edge: 3px;
+  --card-hover-border: var(--accent);
+  --header-bg: var(--surface);
+  --header-rule: 3px double var(--border);
+}
+
+/* Theme 2: Modern Sage. Clean and airy: sans-serif, large radii, soft shadows. */
+:root[data-theme='sage'] {
+  color-scheme: light;
+
+  --bg: #f8f9f5;
+  --surface: #fff;
+  --border: #d3ddcc;
+  --border-input: #7c8a80;
+  --text: #4f5b54;
+  --text-h: #242c28;
+  --primary: #506a57;
+  --primary-hover: #3f5546;
+  --on-primary: #fff;
+  --accent: #a3b899;
+  --tag-bg: #e4ebdf;
+  --tag-text: #2f4a37;
+  --danger: #a3261b;
+  --scrim: rgb(36 44 40 / 45%);
+
+  --radius-s: 12px;
+  --radius-m: 20px;
+  --radius-control: 999px;
+
+  --font-display:
+    system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+  --heading-weight: 650;
+  --heading-tracking: -0.02em;
+  --label-transform: none;
+  --label-tracking: 0;
+  --label-size: 0.8rem;
+  --label-weight: 500;
+
+  --shadow: 0 1px 2px rgb(36 44 40 / 4%), 0 8px 24px rgb(36 44 40 / 6%);
+  --shadow-lifted:
+    0 2px 4px rgb(36 44 40 / 6%), 0 14px 32px rgb(36 44 40 / 12%);
+  --card-bg: var(--surface);
+  --card-edge: 0px;
+  --card-hover-border: var(--primary);
+  --header-bg: var(--surface);
+  --header-rule: 1px solid var(--border);
+}
+
+/* Theme 3: Midnight Kitchen. Dark and atmospheric: serif, copper glow. */
+:root[data-theme='midnight'] {
+  color-scheme: dark;
+
+  --bg: #171c19;
+  --surface: #252d27;
+  --border: #38443c;
+  --border-input: #7f8c80;
+  --text: #bdb8ab;
+  --text-h: #ede7da;
+  --primary: #9db88b;
+  --primary-hover: #b3cca2;
+  --on-primary: #171c19;
+  --accent: #d39a72;
+  --tag-bg: #2f3932;
+  --tag-text: #f0d3bc;
+  --danger: #ff9c8f;
+  --scrim: rgb(0 0 0 / 65%);
+
+  --radius-s: 8px;
+  --radius-m: 14px;
+  --radius-control: 10px;
+
+  --font-display:
+    'Iowan Old Style', 'Palatino Linotype', Palatino, 'Book Antiqua', Georgia,
+    serif;
+  --heading-weight: 500;
+  --heading-tracking: 0;
+  --label-transform: none;
+  --label-tracking: 0.03em;
+  --label-size: 0.8rem;
+  --label-weight: 500;
+
+  --shadow: 0 1px 0 rgb(255 255 255 / 4%) inset, 0 8px 24px rgb(0 0 0 / 35%);
+  --shadow-lifted:
+    0 0 0 1px rgb(211 154 114 / 45%), 0 14px 34px rgb(0 0 0 / 50%);
+  --card-bg: linear-gradient(180deg, #2b352e, #252d27);
+  --card-edge: 2px;
+  --card-hover-border: var(--accent);
+  --header-bg: var(--surface);
+  --header-rule: 1px solid var(--border);
+}
