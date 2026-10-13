@@ -35,6 +35,18 @@ Recipe Vault is a personal recipe manager (React + TypeScript). The repo is curr
 | D17 | Selecting several tags filters with AND: a recipe matches only if it has all selected tags.                                                                      |
 | D18 | The trash has no "empty trash" action in the MVP. Recipes are permanently deleted one at a time, with explicit confirmation.                                     |
 
+## Post-MVP candidates (not approved)
+
+The items below are proposals, not part of the approved baseline above. None changes a decision until it is approved. Each has a design document.
+
+| Candidate                       | Relation to the baseline                                                                         | Document                                                 |
+| ------------------------------- | ------------------------------------------------------------------------------------------------ | -------------------------------------------------------- |
+| Recipe photos (optional)        | "Out of scope (later)". Would reword D15: photos are an attachment, not part of the recipe model | [ADR 0002](adr/0002-recipe-photos.md)                    |
+| Remote access with Tailscale    | Refines D2 (VPN). The VPN choice is still open in ADR 0001                                       | [remote-access-tailscale.md](remote-access-tailscale.md) |
+| Installable PWA                 | "Offline/PWA" is out of scope (later)                                                            | [pwa-and-offline.md](pwa-and-offline.md)                 |
+| Offline read-only, then editing | D4: nice to have, not required                                                                   | [pwa-and-offline.md](pwa-and-offline.md)                 |
+| Scheduled backups               | Out of scope today. ADR 0001 suggests revisiting                                                 | [deployment-pi.md](deployment-pi.md)                     |
+
 ## User stories and acceptance criteria
 
 **US1 Create recipe.** As the owner, I can create a recipe with title, servings, ingredients, steps, optional prep/cook time and tags.

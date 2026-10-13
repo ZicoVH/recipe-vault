@@ -31,7 +31,7 @@ An npm workspaces monorepo:
 
 - `apps/web`: the React + TypeScript frontend (Vite).
 - `apps/api`: the backend, planned and not created yet.
-- `docs/`: requirements, the architecture decision record, the spike and the ticket list.
+- `docs/`: requirements, architecture decision records, the spike, the ticket list, and plans for Pi deployment, Tailscale access, photos, PWA and offline support (planned, not implemented).
 - `spike/`: throwaway scripts for the Raspberry Pi spike. Not part of the application.
 
 Shared tooling (ESLint, Prettier, TypeScript) lives at the repository root.

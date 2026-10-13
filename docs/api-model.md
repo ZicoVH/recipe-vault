@@ -7,7 +7,7 @@ Based on `docs/requirements.md` (D5, D6, D9, D10, D11, D12, D13, D15, D17, D18) 
 ## Principles
 
 - **Single user, no auth.** There is no user id on any record (D1, D15).
-- **No photo or multi-user fields.** New fields can be added later without breaking existing clients (D15).
+- **No photo or multi-user fields.** New fields can be added later without breaking existing clients (D15). Photos are a proposed post-MVP extension as a separate attachment, see [ADR 0002](adr/0002-recipe-photos.md). Not implemented.
 - **The API is language-neutral.** Errors carry stable codes and field paths. The frontend maps them to Dutch messages (US3).
 - **The server owns ids and timestamps.** Clients never send them.
 - **JSON over HTTP**, all under `/api`, UTF-8.

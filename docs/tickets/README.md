@@ -26,13 +26,21 @@ Derived from `docs/requirements.md` (MVP baseline) and `docs/spike-pi-sqlite.md`
 | 2.5 | Export and import UI                    | M    | 1.7        | US7, US8      | done   |
 | 2.6 | Warn about unsaved changes in the form  | S    | 2.2        | US1, US3      | done   |
 | 3.1 | Backup and restore procedure            | M    | 1.2        | US9, R1       | todo   |
+| 3.2 | Update procedure and dev data migration | M    | 1.2, 3.1   | US10, R1      | todo   |
+| 3.3 | Remote access with Tailscale            | M    | 1.2        | D2, R2        | todo   |
+| 4.1 | Recipe photos: storage and API          | L    | 1.3, 0.2   | ADR 0002      | todo   |
+| 4.2 | Recipe photos: frontend                 | M    | 4.1, 2.2   | ADR 0002      | todo   |
+| 4.3 | Installable PWA                         | M    | 3.3        | post-MVP      | todo   |
+| 4.4 | Offline read-only access                | L    | 4.3        | D4, post-MVP  | todo   |
+| 4.5 | Offline editing and synchronisation     | L    | 4.4        | post-MVP      | todo   |
 
 ## Files
 
 - [epic-0-foundations.md](epic-0-foundations.md): decision gate before any backend work
 - [epic-1-backend.md](epic-1-backend.md): backend, storage and deployment
 - [epic-2-frontend.md](epic-2-frontend.md): frontend integration
-- [epic-3-operations.md](epic-3-operations.md): backup and restore
+- [epic-3-operations.md](epic-3-operations.md): backup and restore, updates, remote access
+- [epic-4-post-mvp.md](epic-4-post-mvp.md): proposed post-MVP candidates (photos, PWA, offline). Not approved, see the file header
 
 ## Suggested order
 
@@ -47,6 +55,10 @@ Derived from `docs/requirements.md` (MVP baseline) and `docs/spike-pi-sqlite.md`
 - **Risk (R2):** no app-level auth. A network misconfiguration in 1.2 exposes all data.
 - **Risk (R3):** free-text ingredient amounts complicate scaling later. Out of MVP scope.
 - **Dependency:** 3.1 needs a second storage device. The Pi's current setup may only offer the same card.
+
+## Post-MVP candidates
+
+Epic 4 holds photos, an installable PWA and offline support. They are proposals and need a decision first. Their design lives in [ADR 0002](../adr/0002-recipe-photos.md) and [pwa-and-offline.md](../pwa-and-offline.md). Deployment and access plans are in [deployment-pi.md](../deployment-pi.md) and [remote-access-tailscale.md](../remote-access-tailscale.md).
 
 ## Current frontend state
 
