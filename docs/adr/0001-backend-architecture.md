@@ -88,4 +88,6 @@ A failed check triggers its fallback path and a revision of this ADR.
 - Backup schedule and whether scheduled backups move into the MVP.
 - Container layout and how the frontend is served.
 - Backend test strategy.
-- Remote access mechanism (VPN choice).
+- Remote access mechanism (VPN choice). Tailscale is the preferred initial approach, documented in [remote-access-tailscale.md](../remote-access-tailscale.md) and not yet decided.
+- Deployment details not covered here (volumes, updates, backup destination and schedule, data migration) are collected in [deployment-pi.md](../deployment-pi.md).
+- Optional recipe photos are proposed separately in [ADR 0002](0002-recipe-photos.md).
