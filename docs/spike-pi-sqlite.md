@@ -129,6 +129,23 @@ SSD results are required for a "go". Optional microSD results are informational 
 - Remote access and VPN setup.
 - Automated scheduled backups.
 
+## Pre-spike results (dev PC, 2026-10-13)
+
+A first run of the scripts in `spike/` on the developer PC (x86_64, Node 24.21.0, SQLite 3.53.2, better-sqlite3 12.11.1, 500 generated recipes). This is informational and does not count toward the thresholds or the go/no-go. Run it on the Pi with `cd spike && npm install && node run.mjs <data-dir>`.
+
+| Check                                 | PC result     | Valid for the Pi?                                           |
+| ------------------------------------- | ------------- | ----------------------------------------------------------- |
+| 2. FTS5 and accent-insensitive search | 11 of 11 pass | Yes, this is logic. Re-run on the Pi to confirm             |
+| 3. Backup and restore                 | 4 of 4 pass   | Logic yes. Duration and disk behavior need the Pi           |
+| 4. Persistence                        | 3 of 3 pass   | Partly. Container restart, image update and reboot untested |
+| 1. ARM64 install                      | Not tested    | No. No arm64 emulation was available                        |
+| 5 and 6. RAM, startup, search latency | Informational | No. Different hardware, in-process, no network              |
+
+Findings:
+
+- FTS5 with the `unicode61 remove_diacritics 2` tokenizer matches "creme brulee", "CREPES" and "saumon" as required, and the join on a `trashed` flag excludes trashed recipes. No normalized columns were needed.
+- Backup with `db.backup()` while writes continue produced a copy that passes `integrity_check` and restores to identical content.
+
 ## Outcome
 
 To be filled in after the spike: measured results per environment, pass or fail per check, and a go or no-go recommendation as input to the ADR.
