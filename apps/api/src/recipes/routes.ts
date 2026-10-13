@@ -1,6 +1,7 @@
 import type { Database } from 'better-sqlite3'
 import type { FastifyInstance } from 'fastify'
 import { sendError } from '../errors.ts'
+import { exportRecipes, importRecipes } from './exchange.ts'
 import {
   createRecipe,
   deleteTrashedRecipe,
@@ -13,6 +14,8 @@ import {
   updateRecipe,
 } from './repository.ts'
 import { validateRecipeInput } from './validation.ts'
+
+const IMPORT_BODY_LIMIT = 5 * 1024 * 1024
 
 export function registerRecipeRoutes(app: FastifyInstance, db: Database) {
   app.get<{ Querystring: { q?: string | string[]; tag?: string | string[] } }>(
@@ -129,6 +132,42 @@ export function registerRecipeRoutes(app: FastifyInstance, db: Database) {
         )
       }
       return reply.code(204).send()
+    },
+  )
+
+  app.get('/api/export', async (_request, reply) => {
+    const day = new Date().toISOString().slice(0, 10)
+    return reply
+      .header(
+        'content-disposition',
+        `attachment; filename="recipe-vault-${day}.json"`,
+      )
+      .send(exportRecipes(db))
+  })
+
+  app.post(
+    '/api/import',
+    { bodyLimit: IMPORT_BODY_LIMIT },
+    async (request, reply) => {
+      const result = importRecipes(db, request.body)
+      if (result.status === 'unsupported_schema_version') {
+        return sendError(
+          reply,
+          422,
+          'unsupported_schema_version',
+          'This file has a schema version that is not supported',
+        )
+      }
+      if (result.status === 'invalid') {
+        return sendError(
+          reply,
+          400,
+          'validation_failed',
+          'Invalid import file',
+          result.fields,
+        )
+      }
+      return { added: result.added }
     },
   )
 }

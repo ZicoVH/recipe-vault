@@ -66,7 +66,9 @@ Implemented with SQLite FTS5 (`unicode61 remove_diacritics 2`) in migration 0003
 
 ## 1.7 Export and import API
 
-Size: M. Depends on: 1.3. Covers: US7, US8, D11.
+Size: M. Depends on: 1.3. Covers: US7, US8, D11. Status: done.
+
+Endpoints: `GET /api/export` (file download) and `POST /api/import` (5 MB limit, all or nothing). Code in `apps/api/src/recipes/exchange.ts`.
 
 - Export returns active recipes only, in one JSON file with a schema version.
 - Import adds all recipes as new and never overwrites or deletes.
