@@ -39,6 +39,14 @@ export function registerErrorHandlers(app: FastifyInstance) {
           'The request body is too large',
         )
       }
+      if (error.code === 'FST_ERR_CTP_INVALID_MEDIA_TYPE') {
+        return sendError(
+          reply,
+          415,
+          'unsupported_media_type',
+          'The request must have content type application/json',
+        )
+      }
       if (
         error.statusCode &&
         error.statusCode >= 400 &&

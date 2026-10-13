@@ -224,4 +224,31 @@ describe('recipe routes', () => {
       { name: 'Winter', count: 2 },
     ])
   })
+
+  it('groups tags with the same case rule as the tag filter', async () => {
+    await post({ title: 'A', servings: 1, tags: ['Éclair'] })
+    await post({ title: 'B', servings: 1, tags: ['éclair'] })
+    const { items } = (await t.app.inject({ url: '/api/tags' })).json()
+    assert.equal(items.length, 1)
+    assert.equal(items[0].count, 2)
+    const filtered = (
+      await t.app.inject({ url: '/api/recipes?tag=%C3%A9clair' })
+    ).json()
+    assert.equal(
+      filtered.items.length,
+      items[0].count,
+      'count equals filter result',
+    )
+  })
+
+  it('rejects a media type other than JSON with a specific code', async () => {
+    const response = await t.app.inject({
+      method: 'POST',
+      url: '/api/recipes',
+      headers: { 'content-type': 'application/xml' },
+      payload: '<recipe/>',
+    })
+    assert.equal(response.statusCode, 415)
+    assert.equal(response.json().error.code, 'unsupported_media_type')
+  })
 })

@@ -17,6 +17,14 @@ describe('searchTerms', () => {
   })
 })
 
+describe('searchTerms Unicode', () => {
+  it('treats decomposed and precomposed accents the same', () => {
+    const decomposed = 'cre\u0300me'
+    assert.deepEqual(searchTerms(decomposed), ['crème'])
+    assert.deepEqual(searchTerms(decomposed), searchTerms('crème'))
+  })
+})
+
 describe('search routes', () => {
   let t: TestApp
   beforeEach(async () => {
@@ -152,5 +160,23 @@ describe('search routes', () => {
       .pluck()
       .get()
     assert.equal(indexed, 4)
+  })
+
+  it('finds recipes when the query is typed in decomposed Unicode', async () => {
+    assert.deepEqual(await search('q=cre%CC%80me%20brule%CC%81e'), [
+      'Crème brûlée',
+    ])
+  })
+
+  it('survives VACUUM, which may renumber rowids', async () => {
+    const [{ id }] = (
+      await t.app.inject({ url: '/api/recipes?q=crepes' })
+    ).json().items
+    await t.app.inject({ method: 'DELETE', url: `/api/recipes/${id}` })
+    await t.app.inject({ method: 'DELETE', url: `/api/trash/${id}` })
+    t.db.exec('VACUUM')
+    assert.deepEqual(await search('q=saumon'), ['Saumon à l’oseille'])
+    assert.deepEqual(await search('q=mosterd'), ['Stoofvlees'])
+    assert.deepEqual(await search('q=crepes'), [])
   })
 })

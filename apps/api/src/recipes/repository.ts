@@ -157,7 +157,7 @@ export function listRecipes(
     terms.length > 0
       ? db
           .prepare(
-            `SELECT r.* FROM recipe_fts f JOIN recipe r ON r.rowid = f.rowid
+            `SELECT r.* FROM recipe_fts f JOIN recipe r ON r.id = f.recipe_id
              WHERE recipe_fts MATCH ? AND r.deleted_at IS NULL`,
           )
           .all(toMatchQuery(terms))
@@ -194,17 +194,29 @@ export function listRecipes(
 
 export type TagCount = { name: string; count: number }
 
-/** Tags used by active recipes with their counts, grouped ignoring case. */
+/**
+ * Tags used by active recipes with their counts. Tags are grouped ignoring case
+ * with the same rule as the tag filter and the validator (toLowerCase).
+ */
 export function listTags(db: Database): TagCount[] {
-  const rows = db
+  const names = db
     .prepare(
-      `SELECT MIN(t.name) AS name, COUNT(*) AS count
-       FROM tag t JOIN recipe r ON r.id = t.recipe_id
-       WHERE r.deleted_at IS NULL
-       GROUP BY t.name COLLATE NOCASE`,
+      `SELECT t.name FROM tag t JOIN recipe r ON r.id = t.recipe_id
+       WHERE r.deleted_at IS NULL`,
     )
-    .all() as TagCount[]
-  return rows.sort((a, b) => collator.compare(a.name, b.name))
+    .pluck()
+    .all() as string[]
+  const groups = new Map<string, TagCount>()
+  for (const name of names) {
+    const key = name.toLowerCase()
+    const group = groups.get(key)
+    if (!group) groups.set(key, { name, count: 1 })
+    else {
+      group.count++
+      if (name < group.name) group.name = name
+    }
+  }
+  return [...groups.values()].sort((a, b) => collator.compare(a.name, b.name))
 }
 
 /** Moves a recipe to the trash. Repeating it keeps the first deletion time. */

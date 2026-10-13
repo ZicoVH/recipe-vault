@@ -12,28 +12,32 @@ const FOLDS: Record<string, string> = {
   Ø: 'o',
 }
 
+/** NFC-normalizes (so "e" + accent equals "é") and expands ligatures. */
 export function fold(text: string): string {
-  return text.replace(/[œŒæÆßøØ]/g, (char) => FOLDS[char] ?? char)
+  return text
+    .normalize('NFC')
+    .replace(/[œŒæÆßøØ]/g, (char) => FOLDS[char] ?? char)
 }
 
 /** Splits a search text into word terms the way the tokenizer does. */
 export function searchTerms(text: string): string[] {
   return fold(text)
-    .split(/[^\p{L}\p{N}]+/u)
+    .split(/[^\p{L}\p{N}\p{M}]+/u)
     .filter(Boolean)
 }
 
-/** Every term must match the start of a word (AND). Terms hold only letters and digits. */
+/** Every term must match the start of a word (AND). Terms hold only letters, marks and digits. */
 export function toMatchQuery(terms: string[]): string {
   return terms.map((term) => `"${term}"*`).join(' ')
 }
 
 /** Rebuilds the index row of one recipe from its current data. */
 export function reindexRecipe(db: Database, id: string) {
-  const row = db
-    .prepare(`SELECT rowid, title FROM recipe WHERE id = ?`)
-    .get(id) as { rowid: number; title: string } | undefined
-  if (!row) return
+  const title = db
+    .prepare(`SELECT title FROM recipe WHERE id = ?`)
+    .pluck()
+    .get(id) as string | undefined
+  if (title === undefined) return
   const names = (table: 'ingredient' | 'tag') =>
     (
       db
@@ -43,19 +47,12 @@ export function reindexRecipe(db: Database, id: string) {
         .pluck()
         .all(id) as string[]
     ).join(' ')
-  db.prepare(`DELETE FROM recipe_fts WHERE rowid = ?`).run(row.rowid)
+  removeFromIndex(db, id)
   db.prepare(
-    `INSERT INTO recipe_fts (rowid, title, ingredients, tags) VALUES (?, ?, ?, ?)`,
-  ).run(
-    row.rowid,
-    fold(row.title),
-    fold(names('ingredient')),
-    fold(names('tag')),
-  )
+    `INSERT INTO recipe_fts (recipe_id, title, ingredients, tags) VALUES (?, ?, ?, ?)`,
+  ).run(id, fold(title), fold(names('ingredient')), fold(names('tag')))
 }
 
 export function removeFromIndex(db: Database, id: string) {
-  db.prepare(
-    `DELETE FROM recipe_fts WHERE rowid = (SELECT rowid FROM recipe WHERE id = ?)`,
-  ).run(id)
+  db.prepare(`DELETE FROM recipe_fts WHERE recipe_id = ?`).run(id)
 }

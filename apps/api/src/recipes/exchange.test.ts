@@ -188,4 +188,17 @@ describe('export and import', () => {
     assert.equal(response.statusCode, 413)
     assert.equal(response.json().error.code, 'payload_too_large')
   })
+
+  it('rejects an import with too many recipes and imports none', async () => {
+    const many = Array.from({ length: 5001 }, (_, i) => ({
+      title: `R${i}`,
+      servings: 1,
+    }))
+    const response = await importFile(b, { schemaVersion: 1, recipes: many })
+    assert.equal(response.statusCode, 400)
+    assert.deepEqual(response.json().error.fields, [
+      { path: 'recipes', code: 'too_long' },
+    ])
+    assert.equal(count(b), 0)
+  })
 })

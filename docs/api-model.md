@@ -52,18 +52,18 @@ type Recipe = {
 
 ### Validation limits (proposal)
 
-| Field                     | Rule                                      |
-| ------------------------- | ----------------------------------------- |
-| `title`                   | 1 to 200 characters after trimming        |
-| `servings`                | whole number, 1 to 1000                   |
-| `prepTimeMinutes`         | null, or whole number 1 to 14400          |
-| `cookTimeMinutes`         | null, or whole number 1 to 14400          |
-| `ingredients`             | 0 to 100 items                            |
-| `ingredient.name`         | 1 to 200 characters                       |
-| `ingredient.quantity`     | null, or number greater than 0            |
-| `ingredient.unit`, `note` | null, or 1 to 50 and 1 to 200 characters  |
-| `steps`                   | 0 to 100 items, 1 to 5000 characters each |
-| `tags`                    | 0 to 30 items, 1 to 50 characters each    |
+| Field                     | Rule                                                 |
+| ------------------------- | ---------------------------------------------------- |
+| `title`                   | 1 to 200 characters after trimming                   |
+| `servings`                | whole number, 1 to 1000                              |
+| `prepTimeMinutes`         | null, or whole number 1 to 14400                     |
+| `cookTimeMinutes`         | null, or whole number 1 to 14400                     |
+| `ingredients`             | 0 to 100 items                                       |
+| `ingredient.name`         | 1 to 200 characters                                  |
+| `ingredient.quantity`     | null, or number greater than 0 and at most 1,000,000 |
+| `ingredient.unit`, `note` | null, or 1 to 50 and 1 to 200 characters             |
+| `steps`                   | 0 to 100 items, 1 to 5000 characters each            |
+| `tags`                    | 0 to 30 items, 1 to 50 characters each               |
 
 A recipe can have zero ingredients or zero steps. US1 requires only title and servings.
 
@@ -116,7 +116,7 @@ type RecipeSummary = {
 
 - `q` is split on whitespace into terms. A recipe matches when every term matches the start of a word in its title, an ingredient name or a tag.
 - Matching ignores case and accents, so "creme brulee" finds "Crème brûlée".
-- `tag` can repeat. A recipe must have all given tags (AND, D17). Tag comparison ignores case.
+- `tag` can repeat. A recipe must have all given tags (AND, D17). Tag comparison ignores case but not accents, so `tag=eclair` does not match "Éclair". The tag list (`GET /api/tags`) groups with the same case rule, so its counts equal the filter results.
 - No `q` and no `tag` returns all active recipes.
 - Trashed recipes are never returned by this endpoint.
 - No match returns `200` with an empty `items` list. The frontend shows the Dutch empty-result message.
@@ -142,6 +142,7 @@ All errors use one shape:
 | 404    | `not_found`                  | No recipe with this id.                                           |
 | 409    | `recipe_trashed`             | Update of a trashed recipe.                                       |
 | 409    | `not_in_trash`               | Restore or permanent delete of an active recipe.                  |
+| 415    | `unsupported_media_type`     | The body is not JSON (for example `application/xml`).             |
 | 413    | `payload_too_large`          | Body above the limit (proposal: 5 MB for import, 1 MB elsewhere). |
 | 422    | `unsupported_schema_version` | Import file has a version the server cannot read.                 |
 | 500    | `internal_error`             | Unexpected failure. No details are exposed.                       |
@@ -181,6 +182,7 @@ Field `code` values: `required`, `too_short`, `too_long`, `out_of_range`, `not_i
 - **Import is all or nothing.** All recipes are created as new, with new ids and timestamps. Existing recipes are never overwritten or deleted, and duplicates of existing titles are allowed (D11).
 - **The result** reports how many recipes were added: `{ "added": 12 }`.
 - Unknown extra fields in an import file are rejected, like in create.
+- An import file may hold at most 5,000 recipes (proposal). More is rejected with `too_long` on `recipes`.
 
 ## Storage guidance (non-binding)
 
@@ -188,7 +190,7 @@ The storage layout is decided in ticket 1.1. The pre-spike used a layout that wo
 
 - Tables for recipes, ingredients, steps and tags, with a position column for ingredients and steps so order is kept.
 - A trashed state as a nullable `deletedAt`.
-- A full-text index over title, ingredient names and tags with an accent-removing tokenizer, built on SQLite FTS5.
+- A full-text index over title, ingredient names and tags with an accent-removing tokenizer, built on SQLite FTS5. The index is keyed on the recipe id, not on `rowid`, which SQLite may renumber on `VACUUM`. Search text is NFC-normalized and ligatures are expanded before indexing and querying.
 - Versioned schema migrations (ADR 0001).
 
 ## Frontend impact

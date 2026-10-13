@@ -5,6 +5,7 @@ export const LIMITS = {
   servingsMax: 1000,
   minutesMax: 14400,
   ingredientsMax: 100,
+  quantityMax: 1_000_000,
   ingredientNameMax: 200,
   unitMax: 50,
   noteMax: 200,
@@ -150,7 +151,7 @@ function validateIngredient(
       !Number.isFinite(value.quantity)
     ) {
       errors.push({ path: `${path}.quantity`, code: 'wrong_type' })
-    } else if (value.quantity <= 0) {
+    } else if (value.quantity <= 0 || value.quantity > LIMITS.quantityMax) {
       errors.push({ path: `${path}.quantity`, code: 'out_of_range' })
     } else {
       quantity = value.quantity

@@ -5,6 +5,7 @@ import { validateRecipeInput } from './validation.ts'
 
 export const SCHEMA_VERSION = 1
 const MAX_REPORTED_ERRORS = 50
+export const MAX_IMPORT_RECIPES = 5000
 
 export type ExportFile = {
   schemaVersion: number
@@ -77,6 +78,9 @@ export function importRecipes(db: Database, body: unknown): ImportResult {
     errors.push({ path: 'recipes', code: 'required' })
   } else if (!Array.isArray(file.recipes)) {
     errors.push({ path: 'recipes', code: 'wrong_type' })
+  }
+  if (Array.isArray(file.recipes) && file.recipes.length > MAX_IMPORT_RECIPES) {
+    errors.push({ path: 'recipes', code: 'too_long' })
   }
   if (errors.length > 0) return { status: 'invalid', fields: errors }
 

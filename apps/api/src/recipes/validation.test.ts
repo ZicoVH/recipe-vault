@@ -129,4 +129,18 @@ describe('validateRecipeInput', () => {
     const result = validateRecipeInput({ ...valid, steps: ['b', 'a'] })
     if (result.ok) assert.deepEqual(result.value.steps, ['b', 'a'])
   })
+
+  it('limits ingredient quantity', () => {
+    assert.deepEqual(
+      fieldsOf({ ...valid, ingredients: [{ name: 'x', quantity: 1e308 }] }),
+      [{ path: 'ingredients[0].quantity', code: 'out_of_range' }],
+    )
+    assert.equal(
+      validateRecipeInput({
+        ...valid,
+        ingredients: [{ name: 'x', quantity: 1_000_000 }],
+      }).ok,
+      true,
+    )
+  })
 })
