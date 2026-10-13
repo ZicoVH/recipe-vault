@@ -35,7 +35,13 @@ The frontend has no test runner yet. Do not add one unless asked. The API uses N
 
 ## Tickets
 
-Tickets live in `docs/tickets/` (index and status in `README.md`, one file per epic). Work one ticket at a time. After finishing each ticket and before starting the next: set its status to `done` in the index, run the relevant checks, then commit and push to `origin/main`. The user authorized this standing commit and push per ticket. Use a clear commit message in the form `type: summary (ticket X.Y)` with a short body of what changed. Do not batch several tickets into one commit.
+Tickets live in `docs/tickets/` (index and status in `README.md`, one file per epic). Work one ticket at a time.
+
+- **When a ticket is finished:** set its status to `done` in the index, run `npm run check`, and commit. Do not push yet.
+- **When starting the next ticket:** push the earlier commits to `origin/main` first, then begin.
+- The user authorized this as a standing routine. Do not batch several tickets into one commit.
+- Commit messages use the form `type: summary (ticket X.Y)` with a short body of what changed.
+- Anything else, such as force pushes or other branches, still needs confirmation.
 
 ## Tooling notes
 
