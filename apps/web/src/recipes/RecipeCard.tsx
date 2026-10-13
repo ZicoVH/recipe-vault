@@ -9,7 +9,7 @@ type RecipeCardProps = {
 }
 
 function RecipeCard({ recipe }: RecipeCardProps) {
-  const { id, title, prepTimeMinutes, cookTimeMinutes, tags } = recipe
+  const { id, title, servings, prepTimeMinutes, cookTimeMinutes, tags } = recipe
 
   return (
     <article className={styles.card}>
@@ -19,6 +19,8 @@ function RecipeCard({ recipe }: RecipeCardProps) {
         </Link>
       </h2>
       <RecipeFacts
+        variant="compact"
+        servings={servings}
         prepTimeMinutes={prepTimeMinutes}
         cookTimeMinutes={cookTimeMinutes}
       />

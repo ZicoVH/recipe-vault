@@ -1,21 +1,60 @@
 .facts {
   margin: 0;
   display: flex;
-  flex-direction: column;
-  gap: 4px;
-  font-size: var(--facts-size, 1rem);
+  flex-wrap: wrap;
+  gap: 8px 24px;
 }
 
 .fact {
   display: flex;
-  gap: 8px;
+  flex-direction: column;
+  gap: 2px;
 }
 
 .fact dt {
-  flex: 0 0 8rem;
+  font-size: var(--label-size);
+  font-weight: var(--label-weight);
+  letter-spacing: var(--label-tracking);
+  text-transform: var(--label-transform);
 }
 
 .fact dd {
   margin: 0;
   color: var(--text-h);
+  font-weight: 600;
+}
+
+/* Card layout: an icon and a value per fact, on one line. */
+.compactFacts {
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 14px;
+  font-size: 0.9rem;
+}
+
+.compactFact dd {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  margin: 0;
+  color: var(--text-h);
+  font-weight: 600;
+}
+
+.compactFact svg {
+  color: var(--primary);
+  flex: none;
+}
+
+.visuallyHidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
 }

@@ -175,18 +175,29 @@ function RecipeOverview({ data }: RecipeOverviewProps) {
       </div>
       {showSearch && (
         <div role="search" className={styles.search}>
-          <label htmlFor={searchId} className={styles.label}>
+          <label htmlFor={searchId} className={styles.visuallyHidden}>
             Zoek op titel, ingrediënt of tag
           </label>
-          <input
-            id={searchId}
-            ref={searchInput}
-            type="search"
-            className={styles.input}
-            value={query}
-            autoComplete="off"
-            onChange={(event) => handleQueryChange(event.target.value)}
-          />
+          <div className={styles.searchField}>
+            <svg
+              aria-hidden="true"
+              viewBox="0 0 20 20"
+              className={styles.searchIcon}
+            >
+              <circle cx="8.5" cy="8.5" r="5.5" />
+              <path d="m13 13 4 4" />
+            </svg>
+            <input
+              id={searchId}
+              ref={searchInput}
+              type="search"
+              className={styles.input}
+              value={query}
+              autoComplete="off"
+              placeholder="Zoek op titel, ingrediënt of tag"
+              onChange={(event) => handleQueryChange(event.target.value)}
+            />
+          </div>
           <TagFilter tags={tags} selected={selected} onToggle={toggleTag} />
           {/* One live region announces the outcome, so a screen reader does
               not hear the no-results message twice. */}

@@ -1,32 +1,42 @@
 .card {
-  --facts-size: 0.85rem;
-
   position: relative;
   height: 100%;
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  padding: 16px;
-  background: var(--surface);
+  gap: 10px;
+  padding: 14px 16px 12px;
+  background: var(--card-bg);
   border: 1px solid var(--border);
-  border-top: 4px solid var(--accent);
-  border-radius: 14px;
-  box-shadow: var(--shadow);
-  transition: box-shadow 0.15s;
+  border-radius: var(--radius-m);
+  /* The coloured top edge is an inset shadow, so it follows the radius and
+     is simply absent when the theme sets its width to 0. */
+  box-shadow:
+    inset 0 var(--card-edge) 0 var(--accent),
+    var(--shadow);
+  transition:
+    box-shadow 0.2s,
+    border-color 0.2s;
 }
 
 .card:hover {
-  box-shadow: var(--shadow-lifted);
+  border-color: var(--card-hover-border);
+  box-shadow:
+    inset 0 var(--card-edge) 0 var(--accent),
+    var(--shadow-lifted);
 }
 
 .card:has(.link:focus-visible) {
-  outline: 2px solid var(--accent);
+  outline: 2px solid var(--primary);
   outline-offset: 2px;
 }
 
 .title {
-  font-size: 1.25rem;
-  font-weight: 700;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  font-size: 1.2rem;
+  font-weight: var(--heading-weight);
   line-height: 1.25;
   overflow-wrap: anywhere;
 }
@@ -34,6 +44,10 @@
 .link {
   color: inherit;
   text-decoration: none;
+}
+
+.card:hover .link {
+  color: var(--primary);
 }
 
 .link:focus-visible {
@@ -50,4 +64,6 @@
 
 .tags {
   margin-top: auto;
+  padding-top: 10px;
+  border-top: 1px solid var(--border);
 }

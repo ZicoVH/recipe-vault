@@ -1,29 +1,38 @@
 .group {
-  margin: 16px 0 0;
+  margin: 8px 0 0;
   padding: 0;
   border: 0;
   min-inline-size: 0;
 }
 
 .legend {
+  float: left;
   padding: 0;
-  margin-bottom: 4px;
-  font-weight: 600;
-  color: var(--text-h);
+  margin: 0 8px 4px 0;
+  font-size: var(--label-size);
+  font-weight: var(--label-weight);
+  letter-spacing: var(--label-tracking);
+  text-transform: var(--label-transform);
+  color: var(--text);
 }
 
 .hint {
-  margin-bottom: 8px;
-  font-size: 0.9rem;
+  margin: 0 0 4px;
+  font-size: 0.85rem;
 }
 
 .chips {
+  clear: both;
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
+  gap: 6px;
   margin: 0;
   padding: 0;
   list-style: none;
+}
+
+.chip:hover .chipText {
+  border-color: var(--primary);
 }
 
 .chip {
@@ -46,20 +55,25 @@
 .chipText {
   display: inline-flex;
   align-items: center;
-  min-height: 44px;
+  /* Dense on purpose: 36px, above the 24px WCAG 2.2 minimum, 6px apart. */
+  min-height: 36px;
   max-width: 100%;
-  padding: 0 14px;
-  font-size: 0.95rem;
+  padding: 0 11px;
+  font-size: 0.85rem;
   color: var(--tag-text);
   background: var(--tag-bg);
-  border: 1px solid transparent;
-  border-radius: 999px;
+  border: 1px solid var(--border);
+  transition:
+    background 0.15s,
+    border-color 0.15s;
+  border-radius: var(--radius-control);
   overflow-wrap: anywhere;
 }
 
 .check:checked + .chipText {
-  color: var(--bg);
-  background: var(--accent);
+  color: var(--on-primary);
+  background: var(--primary);
+  border-color: var(--primary);
 }
 
 .tick {
@@ -67,7 +81,7 @@
 }
 
 .check:focus-visible + .chipText {
-  outline: 2px solid var(--accent);
+  outline: 2px solid var(--primary);
   outline-offset: 2px;
 }
 
@@ -77,16 +91,19 @@
 }
 
 .more {
-  margin-top: 8px;
+  margin-top: 4px;
 }
 
 .summary {
   display: inline-flex;
   align-items: center;
-  min-height: 44px;
-  margin-bottom: 8px;
-  color: var(--accent);
+  min-height: 40px;
+  color: var(--primary);
   cursor: pointer;
+}
+
+.more[open] .summary {
+  margin-bottom: 8px;
 }
 
 .visuallyHidden {

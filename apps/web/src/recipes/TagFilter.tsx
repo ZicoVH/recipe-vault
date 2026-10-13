@@ -1,3 +1,4 @@
+import { useId } from 'react'
 import styles from './TagFilter.module.css'
 import type { TagCount } from './types'
 
@@ -17,6 +18,7 @@ const MIN_HIDDEN = 4
 
 /** Checkboxes shaped like chips. A recipe must have every chosen tag (AND). */
 function TagFilter({ tags, selected, onToggle }: TagFilterProps) {
+  const hintId = useId()
   const isSelected = (name: string) =>
     selected.some((tag) => tag.toLowerCase() === name.toLowerCase())
 
@@ -80,9 +82,11 @@ function TagFilter({ tags, selected, onToggle }: TagFilterProps) {
   }
 
   return (
-    <fieldset className={styles.group}>
+    <fieldset className={styles.group} aria-describedby={hintId}>
       <legend className={styles.legend}>Filter op tag</legend>
-      <p className={styles.hint}>Een recept moet alle gekozen tags hebben.</p>
+      <p id={hintId} className={styles.hint}>
+        Een recept heeft alle gekozen tags.
+      </p>
       <ul className={styles.chips}>{shown.map(renderChip)}</ul>
       {!showAll && (
         <details className={styles.more}>
