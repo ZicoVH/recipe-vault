@@ -73,9 +73,14 @@ function RecipeOverview({ recipes }: RecipeOverviewProps) {
       <title>Recepten · Recipe Vault</title>
       <div className={styles.titleRow}>
         <h1 className={styles.heading}>Recepten</h1>
-        <Link to="/recepten/nieuw" className={buttons.primary}>
-          Nieuw recept
-        </Link>
+        <div className={styles.titleActions}>
+          <Link to="/prullenbak" className={buttons.secondary}>
+            Prullenbak
+          </Link>
+          <Link to="/recepten/nieuw" className={buttons.primary}>
+            Nieuw recept
+          </Link>
+        </div>
       </div>
       {recipes.length > 0 && (
         <div role="search" className={styles.search}>

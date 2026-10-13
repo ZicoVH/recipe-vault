@@ -26,9 +26,10 @@ export const ignoreSearchChange: ShouldRevalidateFunction = ({
 
 /**
  * After a save that did not succeed (server unreachable, invalid, 404, 409)
- * the edit page must keep showing the form with the typed data. Reloading the
- * recipe at that moment would replace the form with an error or not-found
- * page, so skip it. A successful save redirects, which loads the next page.
+ * the edit page must keep showing the form with the typed data, even when the
+ * recipe is gone. Reloading the recipe at that moment would replace the form
+ * with an error or not-found page, so skip it. A successful save redirects,
+ * which loads the next page.
  */
 export const keepFormAfterFailedSave: ShouldRevalidateFunction = ({
   formMethod,
@@ -41,6 +42,16 @@ export const keepFormAfterFailedSave: ShouldRevalidateFunction = ({
     'status' in actionResult
   if (formMethod && failed) return false
   return defaultShouldRevalidate
+}
+
+export async function trashLoader({
+  request,
+}: LoaderFunctionArgs): Promise<RecipeSummary[]> {
+  const { items } = await getJson<{ items: RecipeSummary[] }>(
+    '/api/trash',
+    request.signal,
+  )
+  return items
 }
 
 export async function overviewLoader({

@@ -26,7 +26,9 @@ Routes `/recepten/nieuw` and `/recepten/:recipeId/bewerken`, built with React Ro
 
 ## 2.3 Delete, trash and restore UI
 
-Size: M. Depends on: 1.5. Covers: US4.
+Size: M. Depends on: 1.5. Covers: US4. Status: done.
+
+Delete is a button at the bottom of the recipe page: one click, no confirmation, and it opens the trash view so the recipe can be restored at once. The trash view (`/prullenbak`) lists deleted recipes, newest first, with Terugzetten and Definitief verwijderen. Permanent delete asks inline first (cancel comes before confirm). There is no empty-trash action (D18). Verified with a jsdom test of the real app against a live API (about 35 checks, including failure and stale cases), not in a real browser.
 
 - Delete asks for no confirmation but is reversible from the trash view.
 - The trash view lists deleted recipes with restore and permanent delete.

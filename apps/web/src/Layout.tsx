@@ -22,6 +22,9 @@ function Layout() {
     if (previousPathname.current === pathname) return
     previousPathname.current = pathname
 
+    // A page that moves focus itself, such as to a result message, opts out.
+    if (document.querySelector('main [data-initial-focus]')) return
+
     const heading = document.querySelector<HTMLElement>('main h1')
     if (heading) {
       heading.tabIndex = -1
@@ -38,7 +41,11 @@ function Layout() {
         {pathname === '/' && <p>Jouw persoonlijke receptencollectie</p>}
       </header>
       <p role="status" className={styles.loading}>
-        {navigatingToOtherPage ? 'Laden…' : ''}
+        {navigation.state === 'submitting'
+          ? 'Bezig…'
+          : navigatingToOtherPage
+            ? 'Laden…'
+            : ''}
       </p>
       <main>
         <Outlet />

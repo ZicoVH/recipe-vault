@@ -15,10 +15,17 @@ import {
 } from './recipes/form/RecipeFormRoutes'
 import RecipeOverviewRoute from './recipes/RecipeOverviewRoute'
 import {
+  reloadUnlessRequestFailed,
+  trashPageAction,
+  trashRecipeAction,
+} from './recipes/trash/trashActions'
+import TrashRoute from './recipes/trash/TrashRoute'
+import {
   detailLoader,
   ignoreSearchChange,
   keepFormAfterFailedSave,
   overviewLoader,
+  trashLoader,
 } from './recipes/loaders'
 
 const router = createBrowserRouter([
@@ -38,6 +45,13 @@ const router = createBrowserRouter([
             shouldRevalidate: ignoreSearchChange,
           },
           {
+            path: 'prullenbak',
+            element: <TrashRoute />,
+            loader: trashLoader,
+            shouldRevalidate: reloadUnlessRequestFailed,
+            action: trashPageAction,
+          },
+          {
             path: 'recepten/nieuw',
             element: <RecipeNewRoute />,
             action: createRecipeAction,
@@ -46,6 +60,8 @@ const router = createBrowserRouter([
             path: 'recepten/:recipeId',
             element: <RecipeDetailRoute />,
             loader: detailLoader,
+            shouldRevalidate: reloadUnlessRequestFailed,
+            action: trashRecipeAction,
           },
           {
             path: 'recepten/:recipeId/bewerken',

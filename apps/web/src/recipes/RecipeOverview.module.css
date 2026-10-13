@@ -7,6 +7,12 @@
   margin-bottom: 16px;
 }
 
+.titleActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
 .heading {
   font-size: 1.75rem;
   font-weight: 600;

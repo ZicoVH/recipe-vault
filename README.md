@@ -15,7 +15,7 @@ Early development. The backend API is complete for the MVP, and the frontend is 
 - A recipe overview: a responsive grid of recipe cards with title, optional preparation and cooking time, and tags. A search field filters the cards by title only, ignoring case and accents. The query is kept in the URL as `?q=`.
 - A recipe detail page at `/recepten/<id>` with servings, times, tags, ingredients and ordered steps. Direct links and bookmarks work, and unknown recipes show a not-found page.
 
-Routing uses [React Router](https://reactrouter.com). The frontend can create and edit recipes. It does not have a trash view, export and import, or search on ingredients and tags yet. Its title search runs in the browser. These are planned in `docs/tickets/`.
+Routing uses [React Router](https://reactrouter.com). The frontend can create, edit, delete and restore recipes (with a trash view). It does not have export and import, or search on ingredients and tags yet. Its title search runs in the browser. These are planned in `docs/tickets/`.
 
 ## Planned architecture
 
