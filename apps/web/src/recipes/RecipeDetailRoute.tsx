@@ -1,15 +1,10 @@
-import { useParams } from 'react-router'
+import { useLoaderData } from 'react-router'
 import NotFound from '../NotFound'
 import RecipeDetail from './RecipeDetail'
-import type { Recipe } from './types'
+import type { detailLoader } from './loaders'
 
-type RecipeDetailRouteProps = {
-  recipes: Recipe[]
-}
-
-function RecipeDetailRoute({ recipes }: RecipeDetailRouteProps) {
-  const { recipeId } = useParams()
-  const recipe = recipes.find((candidate) => candidate.id === recipeId)
+function RecipeDetailRoute() {
+  const recipe = useLoaderData<Awaited<ReturnType<typeof detailLoader>>>()
 
   if (!recipe) {
     return (

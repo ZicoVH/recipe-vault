@@ -6,17 +6,17 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 Recipe Vault: a personal recipe collection app. Requirements are in `docs/requirements.md`, the source of truth for scope and decisions. Read it only when a task needs it.
 
-Current state: a React 19 + TypeScript frontend (Vite, npm) in Dutch, fed by mock data. Routing is React Router data mode (`createBrowserRouter`) in `apps/web/src/App.tsx`. Keep the accessible navigation behavior in `Layout.tsx` when adding routes: one `h1` per page, focus moved to the `h1` after navigation, each page sets its own `<title>`, real links, visible focus.
+Current state: a React 19 + TypeScript frontend (Vite, npm) in Dutch that reads recipes from the API. Routing is React Router data mode (`createBrowserRouter`) in `apps/web/src/App.tsx`, with loaders in `apps/web/src/recipes/loaders.ts`, a Dutch error page (`RouteError.tsx`) and a loading fallback. The frontend needs the API: run `npm run dev:api` next to `npm run dev` (Vite proxies `/api` to port 3000). Sample data: `curl -X POST localhost:3000/api/import -H 'content-type: application/json' --data-binary @apps/api/seed/sample-recipes.json`. Keep the accessible navigation behavior in `Layout.tsx` when adding routes: one `h1` per page, focus moved to the `h1` after navigation, each page sets its own `<title>`, real links, visible focus.
 
 Conventions:
 
 - The repo is an npm workspaces monorepo: `apps/web` (frontend) and `apps/api` (backend). Shared tooling configs (ESLint, Prettier) are at the root. `spike/` is throwaway and not a workspace.
-- Frontend code lives in `apps/web/src/` and `apps/web/src/recipes/`. Components take recipes as props; only `apps/web/src/App.tsx` imports `mockRecipes.ts`.
+- Frontend code lives in `apps/web/src/` and `apps/web/src/recipes/`. Components take recipes as props; route components read loader data and pass it down.
 - Styling uses CSS Modules plus tokens in `apps/web/src/index.css`.
-- The `Recipe` type in `apps/web/src/recipes/types.ts` is a temporary model for mock data, not the final model or an API contract. Ingredient amounts are free display text, so scaling is not supported.
+- `apps/web/src/recipes/types.ts` mirrors the API model in `docs/api-model.md`. Keep the two in sync.
 - The UI is in Dutch; code and technical docs stay in English.
 
-Not implemented yet: the frontend does not call the API (it still uses mock data), and it has no forms, trash UI, export/import UI or search on ingredients and tags. Do not add them unless asked; the plan is in `docs/tickets/` (Epic 2) and the contract in `docs/api-model.md`. The API is feature-complete for the MVP: health, recipe CRUD, trash and restore, search with `?q=` and repeated `tag=`, tag counts, export and import (tickets 1.1 to 1.7).
+Not implemented yet in the frontend: forms (create and edit), trash UI, export/import UI, and search on ingredients and tags (title search still runs in the browser on the loaded list). Do not add them unless asked; the plan is in `docs/tickets/` (Epic 2). The API is feature-complete for the MVP (tickets 1.1 to 1.7, contract in `docs/api-model.md`).
 
 Backend (provisional until ADR 0001 is accepted): Fastify with `better-sqlite3`, SQLite in WAL mode in `DATA_DIR`, deployed later with Docker on a Raspberry Pi 4B (ARM64). Keep SQLite access in `apps/api/src/db.ts` so the driver can be swapped (`node:sqlite` is the fallback). Do not add other backend technology unprompted. Any server hosting the built app must fall back to `index.html` for unknown paths so deep links like `/recepten/<id>` work. There is no AI API integration; Claude Code is only the development tool.
 

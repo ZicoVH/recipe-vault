@@ -1,9 +1,9 @@
 import RecipeCard from './RecipeCard'
 import styles from './RecipeList.module.css'
-import type { Recipe } from './types'
+import type { RecipeSummary } from './types'
 
 type RecipeListProps = {
-  recipes: Recipe[]
+  recipes: RecipeSummary[]
 }
 
 function RecipeList({ recipes }: RecipeListProps) {

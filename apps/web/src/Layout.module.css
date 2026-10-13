@@ -21,3 +21,9 @@
 .brand:hover {
   text-decoration: underline;
 }
+
+.loading {
+  margin: 0;
+  color: var(--text);
+  font-size: 0.9rem;
+}

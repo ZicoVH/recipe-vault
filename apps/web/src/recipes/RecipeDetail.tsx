@@ -1,6 +1,7 @@
 import { Link } from 'react-router'
 import RecipeFacts from './RecipeFacts'
 import styles from './RecipeDetail.module.css'
+import { formatAmount } from './formatAmount'
 import TagList from './TagList'
 import type { Recipe } from './types'
 
@@ -38,14 +39,19 @@ function RecipeDetail({ recipe }: RecipeDetailProps) {
         <section className={styles.section}>
           <h2 className={styles.heading}>Ingrediënten</h2>
           <ul className={styles.ingredients}>
-            {ingredients.map((ingredient, index) => (
-              <li key={index} className={styles.ingredient}>
-                {ingredient.amount && (
-                  <span className={styles.amount}>{ingredient.amount}</span>
-                )}
-                <span className={styles.name}>{ingredient.name}</span>
-              </li>
-            ))}
+            {ingredients.map((ingredient, index) => {
+              const amount = formatAmount(ingredient)
+              return (
+                <li key={index} className={styles.ingredient}>
+                  {amount && <span className={styles.amount}>{amount}</span>}
+                  <span className={styles.name}>
+                    {ingredient.note
+                      ? `${ingredient.name}, ${ingredient.note}`
+                      : ingredient.name}
+                  </span>
+                </li>
+              )
+            })}
           </ul>
         </section>
       )}

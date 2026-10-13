@@ -3,10 +3,10 @@ import { useLocation, useNavigationType, useSearchParams } from 'react-router'
 import RecipeList from './RecipeList'
 import styles from './RecipeOverview.module.css'
 import { filterRecipesByTitle } from './searchRecipes'
-import type { Recipe } from './types'
+import type { RecipeSummary } from './types'
 
 type RecipeOverviewProps = {
-  recipes: Recipe[]
+  recipes: RecipeSummary[]
 }
 
 function formatResultCount(count: number) {

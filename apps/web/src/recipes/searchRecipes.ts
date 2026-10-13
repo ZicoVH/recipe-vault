@@ -1,5 +1,3 @@
-import type { Recipe } from './types'
-
 /** Lowercases and strips accents so "Crème" and "creme" compare equal. */
 function normalizeForSearch(text: string): string {
   return text.normalize('NFD').replace(/\p{M}/gu, '').toLowerCase()
@@ -9,10 +7,10 @@ function normalizeForSearch(text: string): string {
  * Keeps recipes whose title contains every word of the query, ignoring case
  * and accents. An empty or whitespace-only query keeps everything.
  */
-export function filterRecipesByTitle(
-  recipes: Recipe[],
+export function filterRecipesByTitle<T extends { title: string }>(
+  recipes: T[],
   query: string,
-): Recipe[] {
+): T[] {
   const words = normalizeForSearch(query).split(/\s+/).filter(Boolean)
   if (words.length === 0) return recipes
 

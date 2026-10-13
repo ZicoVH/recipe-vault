@@ -6,12 +6,16 @@ Recipe Vault is a personal recipe manager for creating, editing, organizing and 
 
 ## Status
 
-Early development. The frontend is a React + TypeScript app built with Vite, in Dutch, using mock data bundled with the app. It has:
+Early development. The backend API is complete for the MVP, and the frontend is partly connected to it.
+
+**Backend** (`apps/api`): a Node.js + TypeScript REST API (Fastify) with SQLite. It supports recipe create, read, update and list, trash and restore, search on title, ingredients and tags, tag counts, and JSON export and import. The contract is in [docs/api-model.md](docs/api-model.md). The technology choice is provisional until ADR 0001 is accepted.
+
+**Frontend** (`apps/web`): a React + TypeScript app built with Vite, in Dutch, that reads recipes from the API. It has:
 
 - A recipe overview: a responsive grid of recipe cards with title, optional preparation and cooking time, and tags. A search field filters the cards by title only, ignoring case and accents. The query is kept in the URL as `?q=`.
 - A recipe detail page at `/recepten/<id>` with servings, times, tags, ingredients and ordered steps. Direct links and bookmarks work, and unknown recipes show a not-found page.
 
-Routing uses [React Router](https://reactrouter.com). Only title search is implemented. Searching on ingredients and tags (part of the MVP requirements in `docs/requirements.md`) is planned, as are tag filters. Forms, persistence, a backend and a database do not exist yet.
+Routing uses [React Router](https://reactrouter.com). The frontend does not have forms, a trash view, export and import, or search on ingredients and tags yet. Its title search runs in the browser. These are planned in `docs/tickets/`.
 
 ## Planned architecture
 
@@ -34,11 +38,18 @@ Shared tooling (ESLint, Prettier, TypeScript) lives at the repository root.
 
 ## Getting started
 
-Requires Node.js 22.22 or newer and npm.
+Requires Node.js 22.22 or newer and npm. The frontend reads its recipes from the API, so start both:
 
 ```bash
 npm install
-npm run dev
+npm run dev:api   # API on http://127.0.0.1:3000, data in apps/api/data
+npm run dev       # frontend, proxies /api to the API
+```
+
+Optional sample recipes (run while the API is up):
+
+```bash
+curl -X POST localhost:3000/api/import -H 'content-type: application/json' --data-binary @apps/api/seed/sample-recipes.json
 ```
 
 ## Scripts

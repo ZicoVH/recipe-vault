@@ -4,8 +4,8 @@ import styles from './RecipeFacts.module.css'
 
 type RecipeFactsProps = {
   servings?: number
-  prepTimeMinutes?: number
-  cookTimeMinutes?: number
+  prepTimeMinutes?: number | null
+  cookTimeMinutes?: number | null
 }
 
 type FactProps = {
@@ -33,8 +33,8 @@ function RecipeFacts({
 }: RecipeFactsProps) {
   if (
     servings === undefined &&
-    prepTimeMinutes === undefined &&
-    cookTimeMinutes === undefined
+    prepTimeMinutes == null &&
+    cookTimeMinutes == null
   ) {
     return null
   }
@@ -44,12 +44,12 @@ function RecipeFacts({
       {servings !== undefined && (
         <Fact label={servings === 1 ? 'Persoon' : 'Personen'}>{servings}</Fact>
       )}
-      {prepTimeMinutes !== undefined && (
+      {prepTimeMinutes != null && (
         <Fact label="Voorbereiding">
           <Minutes value={prepTimeMinutes} />
         </Fact>
       )}
-      {cookTimeMinutes !== undefined && (
+      {cookTimeMinutes != null && (
         <Fact label="Kooktijd">
           <Minutes value={cookTimeMinutes} />
         </Fact>

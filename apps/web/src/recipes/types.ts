@@ -1,21 +1,27 @@
 /**
- * Temporary frontend model for the mock data. Not the final recipe model,
- * and not a persistence or API contract. To be replaced by the model in
- * docs/api-model.md when the frontend moves to the API (ticket 2.1).
+ * Recipe model as returned by the API. Mirrors docs/api-model.md: keep the two
+ * in sync when the contract changes.
  */
 export type Ingredient = {
-  /** Free display text such as "500 g", "2" or "een snuf". */
-  amount?: string
   name: string
+  quantity: number | null
+  unit: string | null
+  note: string | null
 }
 
-export type Recipe = {
+export type RecipeSummary = {
   id: string
   title: string
   servings: number
-  prepTimeMinutes?: number
-  cookTimeMinutes?: number
+  prepTimeMinutes: number | null
+  cookTimeMinutes: number | null
   tags: string[]
+  deletedAt: string | null
+}
+
+export type Recipe = RecipeSummary & {
   ingredients: Ingredient[]
   steps: string[]
+  createdAt: string
+  updatedAt: string
 }

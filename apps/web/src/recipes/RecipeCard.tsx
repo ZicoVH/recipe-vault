@@ -2,10 +2,10 @@ import { Link } from 'react-router'
 import RecipeFacts from './RecipeFacts'
 import styles from './RecipeCard.module.css'
 import TagList from './TagList'
-import type { Recipe } from './types'
+import type { RecipeSummary } from './types'
 
 type RecipeCardProps = {
-  recipe: Recipe
+  recipe: RecipeSummary
 }
 
 function RecipeCard({ recipe }: RecipeCardProps) {

@@ -1,0 +1,441 @@
+{
+  "schemaVersion": 1,
+  "exportedAt": "2026-10-13T00:00:00Z",
+  "recipes": [
+    {
+      "title": "Stoofvlees met friet",
+      "servings": 4,
+      "prepTimeMinutes": 30,
+      "cookTimeMinutes": 180,
+      "ingredients": [
+        {
+          "name": "rundsvlees voor stoofvlees, in blokken",
+          "quantity": 800,
+          "unit": "g",
+          "note": null
+        },
+        {
+          "name": "grote uien, in halve ringen",
+          "quantity": 3,
+          "unit": null,
+          "note": null
+        },
+        {
+          "name": "peperkoek",
+          "quantity": 2,
+          "unit": "sneetjes",
+          "note": null
+        },
+        {
+          "name": "grove mosterd",
+          "quantity": 2,
+          "unit": "el",
+          "note": null
+        },
+        {
+          "name": "donker bier",
+          "quantity": 33,
+          "unit": "cl",
+          "note": null
+        },
+        {
+          "name": "runderbouillon",
+          "quantity": 250,
+          "unit": "ml",
+          "note": null
+        },
+        {
+          "name": "boter",
+          "quantity": 30,
+          "unit": "g",
+          "note": null
+        },
+        {
+          "name": "laurierblaadjes",
+          "quantity": 2,
+          "unit": null,
+          "note": null
+        },
+        {
+          "name": "tijm",
+          "quantity": 1,
+          "unit": "takje",
+          "note": null
+        },
+        {
+          "name": "zout en peper",
+          "quantity": null,
+          "unit": null,
+          "note": null
+        },
+        {
+          "name": "aardappelen voor de friet",
+          "quantity": 1,
+          "unit": "kg",
+          "note": null
+        }
+      ],
+      "steps": [
+        "Kruid het vlees met zout en peper.",
+        "Smelt de boter in een zware pot en bruin het vlees in porties aan alle kanten. Haal het vlees uit de pot.",
+        "Laat de uien zachtjes glazig stoven in dezelfde pot.",
+        "Doe het vlees terug in de pot. Voeg het bier, de bouillon, laurier en tijm toe.",
+        "Besmeer de peperkoek met mosterd en leg hem in de pot. Laat alles afgedekt op zacht vuur ongeveer drie uur sudderen, tot het vlees mals is.",
+        "Snijd de aardappelen in friet en bak ze goudbruin.",
+        "Proef het stoofvlees, breng bij op smaak en serveer met de friet."
+      ],
+      "tags": ["hoofdgerecht", "belgisch", "stoofpot"]
+    },
+    {
+      "title": "Witloof met hesp en kaas",
+      "servings": 4,
+      "prepTimeMinutes": 20,
+      "cookTimeMinutes": 40,
+      "ingredients": [
+        {
+          "name": "stronken witloof",
+          "quantity": 8,
+          "unit": null,
+          "note": null
+        },
+        {
+          "name": "gekookte hesp",
+          "quantity": 8,
+          "unit": "plakken",
+          "note": null
+        },
+        {
+          "name": "boter",
+          "quantity": 40,
+          "unit": "g",
+          "note": null
+        },
+        {
+          "name": "bloem",
+          "quantity": 40,
+          "unit": "g",
+          "note": null
+        },
+        {
+          "name": "melk",
+          "quantity": 500,
+          "unit": "ml",
+          "note": null
+        },
+        {
+          "name": "geraspte kaas",
+          "quantity": 150,
+          "unit": "g",
+          "note": null
+        },
+        {
+          "name": "een snuf nootmuskaat",
+          "quantity": null,
+          "unit": null,
+          "note": null
+        },
+        {
+          "name": "zout en peper",
+          "quantity": null,
+          "unit": null,
+          "note": null
+        }
+      ],
+      "steps": [
+        "Verwarm de oven voor op 200 °C.",
+        "Kook het witloof ongeveer 10 minuten in gezouten water en laat goed uitlekken.",
+        "Smelt de boter, roer de bloem erdoor en voeg beetje bij beetje de melk toe tot een gladde saus.",
+        "Breng de saus op smaak met nootmuskaat, zout en peper en roer de helft van de kaas erdoor.",
+        "Rol elke witloofstronk in een plak hesp en leg ze in een ovenschaal.",
+        "Giet de saus over het witloof, strooi de rest van de kaas erover en bak 25 minuten in de oven tot de kaas goudbruin is."
+      ],
+      "tags": ["hoofdgerecht", "oven", "klassiek"]
+    },
+    {
+      "title": "Tomatensoep met balletjes",
+      "servings": 4,
+      "prepTimeMinutes": 25,
+      "cookTimeMinutes": 35,
+      "ingredients": [
+        {
+          "name": "rijpe tomaten",
+          "quantity": 1,
+          "unit": "kg",
+          "note": null
+        },
+        {
+          "name": "ui",
+          "quantity": 1,
+          "unit": null,
+          "note": null
+        },
+        {
+          "name": "look",
+          "quantity": 1,
+          "unit": "teentje",
+          "note": null
+        },
+        {
+          "name": "olijfolie",
+          "quantity": 2,
+          "unit": "el",
+          "note": null
+        },
+        {
+          "name": "tomatenpuree",
+          "quantity": 1,
+          "unit": "el",
+          "note": null
+        },
+        {
+          "name": "groentebouillon",
+          "quantity": 750,
+          "unit": "ml",
+          "note": null
+        },
+        {
+          "name": "gemengd gehakt",
+          "quantity": 250,
+          "unit": "g",
+          "note": null
+        },
+        {
+          "name": "fijngehakte peterselie",
+          "quantity": 1,
+          "unit": "el",
+          "note": null
+        },
+        {
+          "name": "zout en peper",
+          "quantity": null,
+          "unit": null,
+          "note": null
+        }
+      ],
+      "steps": [
+        "Snijd de tomaten, de ui en de look grof.",
+        "Fruit de ui en de look in de olijfolie. Voeg de tomatenpuree en de tomaten toe en laat even meebakken.",
+        "Giet de bouillon erbij en laat 20 minuten zachtjes koken.",
+        "Meng ondertussen het gehakt met peterselie, zout en peper en rol kleine balletjes.",
+        "Pureer de soep glad. Laat de balletjes 8 tot 10 minuten gaar worden in de soep.",
+        "Proef en breng bij op smaak."
+      ],
+      "tags": ["soep", "klassiek"]
+    },
+    {
+      "title": "Salade met geitenkaas en walnoten",
+      "servings": 2,
+      "prepTimeMinutes": 15,
+      "cookTimeMinutes": null,
+      "ingredients": [
+        {
+          "name": "gemengde sla",
+          "quantity": 150,
+          "unit": "g",
+          "note": null
+        },
+        {
+          "name": "geitenkaasrol, in plakken",
+          "quantity": 125,
+          "unit": "g",
+          "note": null
+        },
+        {
+          "name": "walnoten",
+          "quantity": 40,
+          "unit": "g",
+          "note": null
+        },
+        {
+          "name": "honing",
+          "quantity": 1,
+          "unit": "el",
+          "note": null
+        },
+        {
+          "name": "olijfolie",
+          "quantity": 2,
+          "unit": "el",
+          "note": null
+        },
+        {
+          "name": "appelazijn",
+          "quantity": 1,
+          "unit": "el",
+          "note": null
+        },
+        {
+          "name": "peper",
+          "quantity": null,
+          "unit": null,
+          "note": null
+        }
+      ],
+      "steps": [
+        "Rooster de walnoten kort in een droge pan.",
+        "Klop de olijfolie, de azijn en een deel van de honing tot een dressing.",
+        "Verdeel de sla over twee borden en leg de geitenkaas erop.",
+        "Strooi de walnoten erover, besprenkel met de rest van de honing en de dressing en maal er peper over."
+      ],
+      "tags": ["salade", "vegetarisch", "snel"]
+    },
+    {
+      "title": "Rijstpap",
+      "servings": 4,
+      "prepTimeMinutes": null,
+      "cookTimeMinutes": 50,
+      "ingredients": [
+        {
+          "name": "volle melk",
+          "quantity": 1,
+          "unit": "l",
+          "note": null
+        },
+        {
+          "name": "rondkorrelrijst",
+          "quantity": 100,
+          "unit": "g",
+          "note": null
+        },
+        {
+          "name": "suiker",
+          "quantity": 40,
+          "unit": "g",
+          "note": null
+        },
+        {
+          "name": "vanillestokje",
+          "quantity": 1,
+          "unit": null,
+          "note": null
+        },
+        {
+          "name": "een snuf zout",
+          "quantity": null,
+          "unit": null,
+          "note": null
+        },
+        {
+          "name": "kaneel om te bestrooien",
+          "quantity": null,
+          "unit": null,
+          "note": null
+        }
+      ],
+      "steps": [
+        "Snijd het vanillestokje open en schraap de zaadjes eruit.",
+        "Breng de melk met vanille en zout aan de kook.",
+        "Voeg de rijst toe en laat 40 tot 45 minuten zachtjes koken. Roer regelmatig zodat de rijst niet aanbrandt.",
+        "Roer de suiker erdoor en serveer warm of koud, bestrooid met kaneel."
+      ],
+      "tags": ["dessert", "klassiek"]
+    },
+    {
+      "title": "Crème brûlée",
+      "servings": 6,
+      "prepTimeMinutes": 20,
+      "cookTimeMinutes": 45,
+      "ingredients": [
+        {
+          "name": "room",
+          "quantity": 500,
+          "unit": "ml",
+          "note": null
+        },
+        {
+          "name": "eidooiers",
+          "quantity": 6,
+          "unit": null,
+          "note": null
+        },
+        {
+          "name": "suiker",
+          "quantity": 80,
+          "unit": "g",
+          "note": null
+        },
+        {
+          "name": "vanillestokje",
+          "quantity": 1,
+          "unit": null,
+          "note": null
+        },
+        {
+          "name": "suiker om te karamelliseren",
+          "quantity": 6,
+          "unit": "tl",
+          "note": null
+        }
+      ],
+      "steps": [
+        "Verwarm de oven voor op 150 °C.",
+        "Verwarm de room met de uitgeschraapte vanille tot net onder het kookpunt.",
+        "Klop de eidooiers met de suiker en giet de warme room er al roerend bij.",
+        "Verdeel het mengsel over zes ovenvaste kommetjes en zet ze in een bakplaat met warm water.",
+        "Bak ongeveer 40 minuten, tot de room net gestold is. Laat afkoelen en zet minstens vier uur in de koelkast.",
+        "Strooi vlak voor het serveren een theelepel suiker over elke crème en karamelliseer met een brander."
+      ],
+      "tags": ["dessert", "feest", "frans"]
+    },
+    {
+      "title": "Langzaam gerezen weekendbrood met rozemarijn, zeezout en een scheut olijfolie",
+      "servings": 8,
+      "prepTimeMinutes": null,
+      "cookTimeMinutes": null,
+      "ingredients": [
+        {
+          "name": "bloem",
+          "quantity": 500,
+          "unit": "g",
+          "note": null
+        },
+        {
+          "name": "zout",
+          "quantity": 10,
+          "unit": "g",
+          "note": null
+        },
+        {
+          "name": "gedroogde gist",
+          "quantity": 7,
+          "unit": "g",
+          "note": null
+        },
+        {
+          "name": "lauw water",
+          "quantity": 350,
+          "unit": "ml",
+          "note": null
+        },
+        {
+          "name": "olijfolie",
+          "quantity": 2,
+          "unit": "el",
+          "note": null
+        },
+        {
+          "name": "rozemarijn, fijngesneden",
+          "quantity": 2,
+          "unit": "takjes",
+          "note": null
+        },
+        {
+          "name": "grof zeezout",
+          "quantity": null,
+          "unit": null,
+          "note": null
+        }
+      ],
+      "steps": [
+        "Meng de bloem, het zout en de gist in een grote kom.",
+        "Voeg het water en de helft van de olijfolie toe en meng tot een plakkerig deeg.",
+        "Dek af en laat het deeg minstens acht uur rijzen op een koele plek.",
+        "Verwarm de oven voor op 230 °C met een gietijzeren pot erin.",
+        "Vouw de rozemarijn door het deeg en vorm er een bol van.",
+        "Leg het deeg in de hete pot, bestrijk met de rest van de olijfolie en strooi er zeezout over.",
+        "Bak 30 minuten met het deksel erop en 15 minuten zonder deksel tot de korst diep goudbruin is."
+      ],
+      "tags": ["brood", "bakken", "weekend", "vegetarisch", "vegan", "ontbijt"]
+    }
+  ]
+}

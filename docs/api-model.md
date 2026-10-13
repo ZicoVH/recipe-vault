@@ -195,7 +195,7 @@ The storage layout is decided in ticket 1.1. The pre-spike used a layout that wo
 
 ## Frontend impact
 
-The temporary frontend `Recipe` type (`apps/web/src/recipes/types.ts`) differs from this model and is replaced in ticket 2.1:
+The temporary frontend `Recipe` type (`apps/web/src/recipes/types.ts`) differed from this model and was replaced in ticket 2.1. For the record, the differences were:
 
 - `Ingredient.amount` (free text such as "2 sneetjes") becomes `quantity`, `unit` and `note`. The mock data needs converting, for example `{ amount: "2 sneetjes", name: "peperkoek" }` becomes quantity 2, unit "sneetjes".
 - Optional times change from `undefined` to `null`.

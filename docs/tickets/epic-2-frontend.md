@@ -4,7 +4,9 @@ All UI copy is in Dutch. Keep the accessible navigation behavior in `Layout.tsx`
 
 ## 2.1 Replace mock data with the API
 
-Size: M. Depends on: 1.3. Covers: US2.
+Size: M. Depends on: 1.3. Covers: US2. Status: done.
+
+Implemented with React Router loaders (`apps/web/src/recipes/loaders.ts`), a Dutch error page with a retry button, a loading line and a first-load fallback. Trashed recipes show the not-found page until ticket 2.3. Title search is still client-side (ticket 2.4 moves it to the API). `apps/api/seed/sample-recipes.json` holds the former mock recipes for development. Verified with the real loaders and rendered pages against a live API, not in a browser.
 
 - Overview and detail load from the API.
 - Loading and error states are shown in Dutch.

@@ -1,9 +1,19 @@
 import { useEffect, useRef } from 'react'
-import { Link, Outlet, ScrollRestoration, useLocation } from 'react-router'
+import {
+  Link,
+  Outlet,
+  ScrollRestoration,
+  useLocation,
+  useNavigation,
+} from 'react-router'
 import styles from './Layout.module.css'
 
 function Layout() {
   const { pathname } = useLocation()
+  const navigation = useNavigation()
+  // Not for changes of the query string only, such as typing in the search box.
+  const navigatingToOtherPage =
+    navigation.state === 'loading' && navigation.location.pathname !== pathname
   const previousPathname = useRef(pathname)
 
   // After navigating, move focus to the new page's heading so screen reader
@@ -27,6 +37,9 @@ function Layout() {
         </Link>
         {pathname === '/' && <p>Jouw persoonlijke receptencollectie</p>}
       </header>
+      <p role="status" className={styles.loading}>
+        {navigatingToOtherPage ? 'Laden…' : ''}
+      </p>
       <main>
         <Outlet />
       </main>
