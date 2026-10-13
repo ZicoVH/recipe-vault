@@ -7,6 +7,7 @@ import {
 } from './formModel'
 import styles from './RecipeForm.module.css'
 import TextField from './TextField'
+import UnitSelect from './UnitSelect'
 
 type IngredientsFieldProps = {
   rows: IngredientRow[]
@@ -51,9 +52,8 @@ function IngredientsField({
                       error={rowErrors.quantity}
                       onChange={(value) => onChange(row.key, 'quantity', value)}
                     />
-                    <TextField
+                    <UnitSelect
                       id={ids.ingredient(row.key, 'unit')}
-                      label="Eenheid"
                       value={row.unit}
                       error={rowErrors.unit}
                       onChange={(value) => onChange(row.key, 'unit', value)}
